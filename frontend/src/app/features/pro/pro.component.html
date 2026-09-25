@@ -1,0 +1,54 @@
+<section class="section">
+  <div class="wrap">
+
+    <div class="head">
+      <span class="kicker">Espace professionnel</span>
+      <h2>File de travail <span class="ar">العمل</span></h2>
+      <p>{{ heading }}</p>
+    </div>
+
+    <div class="panel">
+      @if (queue().length === 0) {
+        <p class="empty">Aucune opération à traiter pour le moment.</p>
+      } @else {
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Référence</th>
+              <th>Client</th>
+              <th>Objet</th>
+              <th>Bureau</th>
+              <th>Montant</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (order of queue(); track order.id) {
+              <tr>
+                <td class="mono">{{ order.reference }}</td>
+                <td>{{ order.customer }}</td>
+                <td class="name">{{ order.label }}</td>
+                <td>{{ order.bureauName ?? '—' }}</td>
+                <td>{{ order.amount | dinar }}</td>
+                <td><span class="status-badge st-{{ order.status }}">{{ statusLabel(order.status) }}</span></td>
+                <td>
+                  <div class="row-actions">
+                    @for (action of actions(order); track action.status) {
+                      <button class="btn-sm primary" type="button" (click)="apply(order, action.status)">
+                        {{ action.label }}
+                      </button>
+                    } @empty {
+                      <span class="muted">—</span>
+                    }
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+
+  </div>
+</section>

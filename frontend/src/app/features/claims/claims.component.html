@@ -1,0 +1,76 @@
+<section class="claims">
+  <div class="head">
+    <span class="kicker">Espace client</span>
+    <h1>Mes réclamations</h1>
+    <p class="sub">Déclarez un colis abîmé ou perdu, et suivez le traitement de vos réclamations.</p>
+  </div>
+
+  <div class="grid">
+    <!-- Formulaire de déclaration -->
+    <form class="declare" [formGroup]="form" (ngSubmit)="submit()">
+      <h2>Déclarer un problème</h2>
+
+      @if (error()) { <div class="alert error">{{ error() }}</div> }
+      @if (sent()) { <div class="alert ok">Votre réclamation a bien été enregistrée. Nous la traitons au plus vite.</div> }
+
+      <label>
+        <span>Numéro de colis <small>(facultatif)</small></span>
+        <input type="text" formControlName="reference" placeholder="EDN-123456" autocomplete="off">
+      </label>
+
+      <label>
+        <span>Nature du problème</span>
+        <select formControlName="type">
+          <option value="damaged">Colis abîmé</option>
+          <option value="lost">Colis perdu</option>
+          <option value="other">Autre problème</option>
+        </select>
+      </label>
+
+      <label>
+        <span>Description</span>
+        <textarea formControlName="description" rows="4"
+          placeholder="Décrivez le problème : ce que vous avez constaté, la date, l'état du colis…"></textarea>
+        @if (form.controls.description.touched && form.controls.description.invalid) {
+          <em class="err">Merci de décrire le problème (au moins 5 caractères).</em>
+        }
+      </label>
+
+      <button type="submit" [disabled]="sending()">
+        {{ sending() ? 'Envoi…' : 'Envoyer la réclamation' }}
+      </button>
+    </form>
+
+    <!-- Historique -->
+    <div class="history">
+      <h2>Historique</h2>
+
+      @if (loading()) {
+        <p class="muted">Chargement…</p>
+      } @else if (list().length === 0) {
+        <p class="muted">Vous n'avez déposé aucune réclamation pour le moment.</p>
+      } @else {
+        <ul class="cards">
+          @for (c of list(); track c.id) {
+            <li class="claim">
+              <div class="row">
+                <b>{{ typeLabel[c.type] }}</b>
+                <span class="badge" [class]="c.status">{{ statusLabel[c.status] }}</span>
+              </div>
+              @if (c.reference) { <p class="ref">Colis {{ c.reference }}</p> }
+              <p class="desc">{{ c.description }}</p>
+              @if (c.response) {
+                <div class="reply">
+                  <span class="reply-label">Réponse du service après-vente</span>
+                  <p class="reply-text">{{ c.response }}</p>
+                  @if (c.respondedAt) { <p class="reply-date">{{ c.respondedAt | date:'dd/MM/yyyy à HH:mm' }}</p> }
+                </div>
+              }
+              <p class="date">{{ c.date | date:'dd/MM/yyyy à HH:mm' }}</p>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+</section>

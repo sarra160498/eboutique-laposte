@@ -1,0 +1,20 @@
+<section class="auth-wrap">
+  <div class="auth-card">
+    <span class="kicker">Espace client</span>
+    <h1>Confirmation de l'e-mail</h1>
+
+    @switch (state()) {
+      @case ('loading') {
+        <p class="sub">{{ message() }}</p>
+      }
+      @case ('success') {
+        <div class="auth-info"><p>{{ message() }}</p></div>
+        <p class="auth-switch"><a routerLink="/connexion">Se connecter</a></p>
+      }
+      @case ('error') {
+        <div class="auth-error">{{ message() }}</div>
+        <p class="auth-switch"><a routerLink="/connexion">Retour à la connexion</a></p>
+      }
+    }
+  </div>
+</section>

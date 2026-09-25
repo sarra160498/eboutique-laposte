@@ -1,0 +1,22 @@
+<div class="topbar">
+  <div class="wrap">
+    <div class="left">
+      <span class="live">{{ i18n.t('top.official') }}</span>
+      <a routerLink="/suivi">{{ i18n.t('top.track') }}</a>
+    </div>
+
+    <div class="right">
+      <span class="ssl">{{ i18n.t('top.ssl') }}</span>
+      <div class="lang">
+        @for (lang of languages; track lang) {
+          <button
+            type="button"
+            [class.on]="i18n.lang() === lang"
+            (click)="setLang(lang)">
+            {{ lang === 'AR' ? 'عربي' : lang }}
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</div>

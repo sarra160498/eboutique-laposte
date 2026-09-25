@@ -1,0 +1,96 @@
+:host { display: block; }
+
+.pad { padding: 18px; }
+.muted { color: var(--ink-soft, #667); }
+
+/* ── Chiffres clés ───────────────────────────────────────────────────────── */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.kpi {
+  border: 2px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  background: var(--paper, #fff);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.kpi-label { font-size: 12px; font-weight: 700; color: var(--ink-soft, #667); text-transform: uppercase; letter-spacing: .03em; }
+.kpi-value { font-size: 1.7rem; color: var(--bleu, #1B2D6B); font-family: 'Fraunces', serif; font-weight: 900; line-height: 1.1; }
+
+/* ── Grille des graphiques ───────────────────────────────────────────────── */
+.charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+.chart-card {
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  background: var(--paper, #fff);
+  padding: 18px;
+}
+.chart-card.wide { grid-column: 1 / -1; }
+.chart-card h3 {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  color: var(--bleu, #1B2D6B);
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+}
+
+/* ── Barres horizontales ─────────────────────────────────────────────────── */
+.bars { display: flex; flex-direction: column; gap: 11px; }
+.bar-row { display: grid; grid-template-columns: 120px 1fr 34px; align-items: center; gap: 10px; }
+.bar-label { font-size: 12px; color: var(--ink); }
+.bar-track { height: 16px; background: var(--wash, #f2f4f9); border: 1.5px solid var(--ink); }
+.bar-fill { height: 100%; background: var(--bleu, #1B2D6B); min-width: 2px; transition: width .4s ease; }
+.bar-fill.navy { background: #1B2D6B; }
+.bar-fill.teal { background: #00a3a3; }
+.bar-value { font-size: 12.5px; font-weight: 800; color: var(--bleu, #1B2D6B); text-align: right; }
+
+/* ── Anneau (réclamations) ───────────────────────────────────────────────── */
+.donut-wrap { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.donut { width: 150px; height: 150px; flex-shrink: 0; }
+.donut-num { font-size: 26px; font-weight: 800; fill: var(--bleu, #1B2D6B); font-family: 'Fraunces', serif; }
+.donut-cap { font-size: 10px; fill: var(--ink-soft, #667); }
+.legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.legend li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink); }
+.legend b { margin-left: auto; color: var(--bleu, #1B2D6B); }
+.dot { width: 12px; height: 12px; border: 1.5px solid var(--ink); flex-shrink: 0; }
+
+/* ── Revenus par mois (barres verticales) ────────────────────────────────── */
+.months { display: flex; align-items: flex-end; gap: 8px; height: 160px; }
+.month { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; }
+.month-bar-wrap { flex: 1; width: 100%; display: flex; align-items: flex-end; }
+.month-bar {
+  width: 100%;
+  background: var(--bleu, #1B2D6B);
+  border: 1.5px solid var(--ink);
+  min-height: 2px;
+  transition: height .4s ease;
+}
+.month-label { font-size: 10.5px; color: var(--ink-soft, #667); white-space: nowrap; }
+
+/* ── Revenus par mode de paiement ────────────────────────────────────────── */
+.method-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.method-list li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px solid var(--line, #e2e7f0);
+}
+.method-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.method-name { font-weight: 700; color: var(--ink); font-size: 13.5px; }
+.method-count { font-size: 12px; color: var(--ink-soft, #667); }
+.method-rev { color: var(--bleu, #1B2D6B); font-size: 14px; }
+
+@media (max-width: 560px) {
+  .bar-row { grid-template-columns: 90px 1fr 30px; }
+}

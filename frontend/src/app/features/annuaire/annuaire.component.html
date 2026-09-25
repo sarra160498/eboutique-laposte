@@ -1,0 +1,79 @@
+<section class="section">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">Annuaire du personnel</span>
+      <h2>Annuaire <span class="ar">الدليل</span></h2>
+      <p>Retrouvez vos collègues, filtrez par fonction, et contactez-les directement.</p>
+    </div>
+
+    <!-- Recherche + filtre par fonction -->
+    <div class="filters">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input #q [value]="search()" (input)="search.set(q.value)"
+               placeholder="Rechercher un nom, un bureau, une région…"
+               aria-label="Rechercher dans l'annuaire">
+        @if (search()) {
+          <button type="button" class="clear" (click)="search.set('')" aria-label="Effacer">×</button>
+        }
+      </div>
+
+      <select #sel [value]="roleFilter()" (change)="roleFilter.set(sel.value)" aria-label="Filtrer par fonction">
+        <option value="">Toutes les fonctions</option>
+        @for (r of roles(); track r) {
+          <option [value]="r">{{ roleLabel[r] }}</option>
+        }
+      </select>
+
+      <select #reg [value]="regionFilter()" (change)="regionFilter.set(reg.value)" aria-label="Filtrer par région">
+        <option value="">Toutes les régions</option>
+        @for (r of regions(); track r) {
+          <option [value]="r">{{ r }}</option>
+        }
+      </select>
+
+      <select #team [value]="teamFilter()" (change)="teamFilter.set(team.value)" aria-label="Filtrer par équipe">
+        <option value="">Toutes les équipes</option>
+        @for (t of teams(); track t) {
+          <option [value]="t">{{ t }}</option>
+        }
+      </select>
+    </div>
+
+    <!-- Résultats -->
+    <div class="cards">
+      @for (e of filtered(); track e.id) {
+        <article class="card">
+          <div class="top">
+            <span class="avatar">{{ e.firstName.charAt(0) }}{{ e.lastName.charAt(0) }}</span>
+            <div class="who">
+              <strong>{{ e.firstName }} {{ e.lastName }}</strong>
+              <span class="role">{{ roleLabel[e.role] }}</span>
+            </div>
+          </div>
+          <ul class="meta">
+            <li><span>Affectation</span><b>{{ location(e) }}</b></li>
+            @if (e.regionName) {
+              <li><span>Région</span><b>{{ e.regionName }}</b></li>
+            }
+            <li><span>E-mail</span><b>{{ e.email }}</b></li>
+          </ul>
+
+          @if (e.teams.length) {
+            <div class="teams">
+              @for (t of e.teams; track t) {
+                <span class="team-tag">{{ t }}</span>
+              }
+            </div>
+          }
+          <button type="button" class="btn-sm primary contact-btn" (click)="contact(e)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Contacter
+          </button>
+        </article>
+      } @empty {
+        <p class="muted pad">Aucun collègue ne correspond à votre recherche.</p>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,54 @@
+<section class="hero">
+  <div class="wrap">
+
+    <!-- Discours -->
+    <div class="intro">
+      <span class="tagpill"><span class="dot"></span> L'écosystème national digital de la Poste</span>
+      <h1>Chaque envoi<br>a son <span class="underline">histoire</span>.<br><em>Commençons.</em></h1>
+      <p class="lead">
+        Timbres de collection, colis Rapid-Poste, emballages et services e-Dinar.
+        Tout le réseau postal tunisien, réuni dans une seule boutique.
+      </p>
+
+      <div class="cta">
+        <a routerLink="/" fragment="boutique" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/></svg>
+          Entrer dans la boutique
+        </a>
+        <a routerLink="/suivi" class="btn btn-ghost">Suivre mon colis →</a>
+      </div>
+
+      <div class="stats">
+        @for (stat of stats; track stat.label) {
+          <div><b>{{ stat.value }}</b><span>{{ stat.label }}</span></div>
+        }
+      </div>
+    </div>
+
+    <!-- Visuel timbre (signature) -->
+    <div class="stamp-stage">
+      <div class="postmark"><div>TUNIS<br>★ POSTE ★<br>2026</div></div>
+
+      <div class="stamp">
+        <div class="inner">
+          <div class="country"><span>RÉPUBLIQUE TUNISIENNE</span><span class="ar">تونس</span></div>
+          <div class="scene">
+            <div class="sun"></div>
+            <div class="dome"></div>
+            <div class="wall"></div>
+          </div>
+          <div class="value">
+            <div class="amount">650<sup>m</sup></div>
+            <div class="edition">Édition<br>2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+        Affranchi &amp; suivi
+      </div>
+    </div>
+
+  </div>
+</section>

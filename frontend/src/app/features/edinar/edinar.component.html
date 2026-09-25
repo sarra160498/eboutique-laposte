@@ -1,0 +1,143 @@
+<section class="section">
+  <div class="wrap">
+
+    <div class="head">
+      <span class="kicker">Paiement sécurisé</span>
+      <h2>Guichet e-Dinar <span class="ar">الدينار الإلكتروني</span></h2>
+      <p>Réglez vos envois et vos commandes en ligne, ou rechargez votre compte e-Dinar.</p>
+    </div>
+
+    <!-- ÉCRAN DE CONFIRMATION -->
+    @if (paid()) {
+      <div class="done">
+        <div class="check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h3>Paiement effectué</h3>
+        <p>Votre transaction a bien été enregistrée.</p>
+
+        @if (receipt(); as r) {
+          <ul class="receipt">
+            <li><span>Référence</span><b>{{ r.reference }}</b></li>
+            <li><span>Objet</span><b>{{ r.label }}</b></li>
+            <li><span>Montant réglé</span><b>{{ r.amount | dinar }}</b></li>
+          </ul>
+        }
+
+        <a routerLink="/" class="btn btn-primary">Retour à l'accueil</a>
+      </div>
+    } @else {
+
+      <!-- GUICHET -->
+      <div class="grid">
+
+        <!-- Colonne gauche : récapitulatif + carte + solde -->
+        <div class="left">
+          @if (intent(); as it) {
+            <div class="order">
+              <span class="kk">À régler</span>
+              <h4>{{ it.label }}</h4>
+              <p class="ref">Réf. {{ it.reference }}</p>
+              <div class="amount">{{ it.amount | dinar }}</div>
+            </div>
+          } @else {
+            <div class="order recharge">
+              <span class="kk">Recharge</span>
+              <h4>Créditer mon compte e-Dinar</h4>
+              <p class="ref">Solde actuel : {{ balance() | dinar }}</p>
+            </div>
+          }
+
+          <!-- Carte e-Dinar virtuelle -->
+          <div class="card">
+            <div class="card-top">
+              <span class="wordmark">e-Dinar</span>
+              <span class="chip"></span>
+            </div>
+            <div class="number">{{ cardDisplay() }}</div>
+            <div class="card-bottom">
+              <div>
+                <small>Titulaire</small>
+                <b>{{ form.controls.holder.value || 'NOM PRÉNOM' }}</b>
+              </div>
+              <div>
+                <small>Expire</small>
+                <b>{{ form.controls.expiry.value || 'JJ/MM/AAAA' }}</b>
+              </div>
+            </div>
+            <span class="post-mark">البريد التونسي · La Poste</span>
+          </div>
+        </div>
+
+        <!-- Colonne droite : formulaire de paiement -->
+        <form class="pay" [formGroup]="form" (ngSubmit)="pay()">
+          <h3>Carte e-Dinar</h3>
+
+          @if (!isPayment()) {
+            <label>
+              <span>Montant à recharger (DT)</span>
+              <input type="number" formControlName="amount" min="1" step="1">
+              @if (form.controls.amount.touched && form.controls.amount.invalid) {
+                <em class="err">Montant invalide</em>
+              }
+            </label>
+          }
+
+          <label>
+            <span>Numéro de carte e-Dinar</span>
+            <input type="text" formControlName="cardNumber" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" [readonly]="fromAccount()">
+            @if (form.controls.cardNumber.touched && form.controls.cardNumber.invalid) {
+              <em class="err">16 chiffres requis</em>
+            }
+            @if (fromAccount()) {
+              <em class="hint">Carte rattachée à votre compte</em>
+            }
+          </label>
+
+          <label>
+            <span>Titulaire</span>
+            <input type="text" formControlName="holder" placeholder="Sarra Ben Ayed" [readonly]="fromAccount()">
+            @if (form.controls.holder.touched && form.controls.holder.invalid) {
+              <em class="err">Champ obligatoire</em>
+            }
+          </label>
+
+          <div class="two">
+            <label>
+              <span>Expiration</span>
+              <input type="text" formControlName="expiry" maxlength="10" placeholder="JJ/MM/AAAA">
+              @if (form.controls.expiry.touched && form.controls.expiry.invalid) {
+                @if (form.controls.expiry.hasError('pastDate')) {
+                  <em class="err">La date est déjà passée</em>
+                } @else if (form.controls.expiry.hasError('invalidDate')) {
+                  <em class="err">Date invalide</em>
+                } @else {
+                  <em class="err">Format JJ/MM/AAAA</em>
+                }
+              }
+            </label>
+            <label>
+              <span>Code confidentiel</span>
+              <input type="password" formControlName="secretCode" inputmode="numeric" maxlength="4" placeholder="••••">
+              @if (form.controls.secretCode.touched && form.controls.secretCode.invalid) {
+                <em class="err">4 chiffres</em>
+              }
+            </label>
+          </div>
+
+          <button class="submit" type="submit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Payer {{ form.getRawValue().amount | dinar }}
+          </button>
+
+          <p class="secure">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Paiement chiffré · aucune donnée bancaire n'est stockée
+          </p>
+        </form>
+
+      </div>
+    }
+
+  </div>
+</section>

@@ -1,0 +1,6 @@
+.empty { color: var(--ink-soft); font-size: 14px; padding: 20px 0; text-align: center; }
+.muted { color: var(--ink-soft); }
+
+/* Tableau lisible sur petit écran : défilement horizontal si besoin. */
+.panel { overflow-x: auto; }
+.data-table { min-width: 760px; }

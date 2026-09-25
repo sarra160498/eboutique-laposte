@@ -1,0 +1,114 @@
+/* Carte de suivi au style "atelier" : bordure nette + ombre décalée. */
+.track {
+  position: relative;
+  max-width: 620px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: 30px;
+  margin-top: 10px;
+}
+
+/* Pastille colis qui dépasse en haut à droite. */
+.pkg {
+  position: absolute;
+  top: -26px;
+  inset-inline-end: 24px;
+  width: 58px;
+  height: 58px;
+  background: var(--jaune);
+  border: 2px solid var(--ink);
+  display: grid;
+  place-items: center;
+  color: var(--bleu);
+  transform: rotate(7deg);
+}
+.pkg svg { width: 30px; height: 30px; }
+
+/* --- Formulaire --- */
+.search { display: flex; gap: 8px; margin-bottom: 22px; }
+.search input {
+  flex: 1;
+  background: var(--wash);
+  border: 2px solid var(--ink);
+  padding: 13px 15px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ink);
+  transition: .2s;
+}
+.search input:focus { outline: none; background: #fff; }
+.search button {
+  background: var(--bleu);
+  color: #fff;
+  padding: 0 22px;
+  font-weight: 700;
+  font-size: 14px;
+  border: 2px solid var(--ink);
+  transition: .2s;
+}
+.search button:hover { background: var(--jaune); color: var(--bleu); }
+
+/* --- En-tête du résultat --- */
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 2px dashed var(--line);
+}
+.num { font-family: 'Fraunces', serif; font-weight: 900; font-size: 18px; color: var(--bleu); }
+.svc {
+  background: var(--bleu);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  padding: 4px 10px;
+}
+
+/* --- Chronologie --- */
+.timeline { list-style: none; position: relative; padding-inline-start: 28px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 8px;
+  top: 7px;
+  bottom: 7px;
+  width: 2px;
+  background: var(--line);
+}
+.timeline li {
+  position: relative;
+  padding-bottom: 18px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li b { display: block; font-size: 14px; color: var(--bleu); font-weight: 700; }
+
+/* Pastille de chaque étape. */
+.timeline li::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: -28px;
+  top: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--line);
+}
+.timeline li.done::before { background: var(--vert); border-color: var(--vert); }
+.timeline li.active::before { background: var(--rouge); border-color: var(--rouge); box-shadow: 0 0 0 5px rgba(229, 56, 75, .16); }
+
+.not-found {
+  font-size: 14px;
+  color: var(--ink-soft);
+  background: var(--wash);
+  border: 2px dashed var(--line);
+  padding: 16px;
+}

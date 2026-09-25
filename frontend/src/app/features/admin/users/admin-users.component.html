@@ -1,0 +1,63 @@
+<div class="panel">
+  <h3>Personnel &amp; rôles</h3>
+  <p class="hint">Choisissez un rôle (et le rattachement bureau/région), puis cliquez sur « Confirmer ». Vous ne voyez et ne gérez que votre périmètre.</p>
+
+  <!-- Sous-onglets par rôle (dynamiques selon les comptes présents) -->
+  <div class="role-tabs">
+    @for (tab of tabs(); track tab) {
+      <button type="button" [class.on]="activeTab() === tab" (click)="activeTab.set(tab)">
+        {{ roleLabel[tab] }} <span class="badge-count">{{ countFor(tab) }}</span>
+      </button>
+    }
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Nom</th><th>Email</th><th>Rôle</th><th>Rattachement</th><th class="ta-end">Action</th></tr>
+    </thead>
+    <tbody>
+      @for (user of filtered(); track user.id) {
+        <tr [class.editing]="hasChange(user)">
+          <td class="name">{{ user.firstName }} {{ user.lastName }}</td>
+          <td class="mono">{{ user.email }}</td>
+          <td>
+            <select class="pretty" [value]="draftRole(user)" (change)="stageRole(user, $any($event.target).value)">
+              @for (role of assignableRoles(); track role) {
+                <option [value]="role">{{ roleLabel[role] }}</option>
+              }
+            </select>
+          </td>
+          <td>
+            @if (needsBureau(draftRole(user))) {
+              <select class="pretty" [value]="draftBureau(user)" (change)="stageBureau(user, $any($event.target).value)">
+                @for (bureau of bureauOptions(); track bureau.id) {
+                  <option [value]="bureau.id">{{ bureau.city }}</option>
+                }
+              </select>
+            } @else if (needsRegion(draftRole(user))) {
+              <select class="pretty" [value]="draftRegion(user)" (change)="stageRegion(user, $any($event.target).value)">
+                @for (region of regions(); track region.id) {
+                  <option [value]="region.id">{{ region.name }}</option>
+                }
+              </select>
+            } @else {
+              <span class="muted">{{ attachmentLabel(user) }}</span>
+            }
+          </td>
+          <td class="ta-end">
+            @if (hasChange(user)) {
+              <div class="row-actions end">
+                <button class="btn-sm" type="button" (click)="cancel(user)">Annuler</button>
+                <button class="btn-sm primary" type="button" (click)="confirm(user)">Confirmer</button>
+              </div>
+            } @else {
+              <span class="muted">—</span>
+            }
+          </td>
+        </tr>
+      } @empty {
+        <tr><td colspan="5" class="muted">Aucun compte dans cette catégorie.</td></tr>
+      }
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,64 @@
+.topbar {
+  background: var(--bleu-d);
+  color: #c5d0ee;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.topbar .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+}
+
+.left {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+/* Pastille clignotante "en direct" devant le message officiel. */
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.live::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--jaune);
+  animation: pulse 2.2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(242, 194, 0, .6); }
+  60%      { box-shadow: 0 0 0 7px rgba(242, 194, 0, 0); }
+}
+
+.left a { opacity: .85; transition: .2s; }
+.left a:hover { opacity: 1; color: var(--jaune); }
+
+.right {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.ssl { color: #9fe6c0; }
+
+.lang { display: flex; gap: 2px; }
+.lang button {
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 7px;
+  opacity: .65;
+  transition: .2s;
+}
+.lang button.on { background: var(--jaune); color: var(--bleu); opacity: 1; }
+.lang button:hover { opacity: 1; }
+
+@media (max-width: 720px) {
+  .left a, .ssl { display: none; }
+}

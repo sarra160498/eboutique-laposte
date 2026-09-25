@@ -1,0 +1,141 @@
+@if (loading()) {
+  <p class="muted pad">Chargement des statistiques…</p>
+} @else if (error()) {
+  <p class="muted pad">Impossible de charger les statistiques.</p>
+} @else if (stats(); as s) {
+
+  <!-- Chiffres clés -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <span class="kpi-label">Colis & commandes</span>
+      <strong class="kpi-value">{{ s.totals.orders }}</strong>
+    </div>
+    <div class="kpi">
+      <span class="kpi-label">Revenus encaissés</span>
+      <strong class="kpi-value">{{ money(s.totals.revenue) }}</strong>
+    </div>
+    <div class="kpi">
+      <span class="kpi-label">Réclamations ouvertes</span>
+      <strong class="kpi-value">{{ s.totals.claimsOpen }}</strong>
+    </div>
+    <div class="kpi">
+      <span class="kpi-label">Clients</span>
+      <strong class="kpi-value">{{ s.totals.clients }}</strong>
+    </div>
+  </div>
+
+  <div class="charts">
+    <!-- Colis par statut -->
+    <section class="chart-card">
+      <h3>Colis par statut</h3>
+      @if (s.ordersByStatus.length) {
+        <div class="bars">
+          @for (r of s.ordersByStatus; track r.status) {
+            <div class="bar-row">
+              <span class="bar-label">{{ labelForStatus(r.status) }}</span>
+              <div class="bar-track">
+                <div class="bar-fill" [style.width.%]="r.count / maxOrderStatus() * 100" [style.background]="colorFor(r.status)"></div>
+              </div>
+              <span class="bar-value">{{ r.count }}</span>
+            </div>
+          }
+        </div>
+      } @else { <p class="muted">Aucune donnée.</p> }
+    </section>
+
+    <!-- Réclamations (anneau) -->
+    <section class="chart-card">
+      <h3>Réclamations</h3>
+      @if (claimsTotal() > 0) {
+        <div class="donut-wrap">
+          <svg viewBox="0 0 140 140" class="donut" aria-hidden="true">
+            <g transform="rotate(-90 70 70)">
+              <circle cx="70" cy="70" [attr.r]="radius" fill="none" stroke="#eef1f6" stroke-width="16" />
+              @for (seg of claimSegments(); track seg.label) {
+                <circle cx="70" cy="70" [attr.r]="radius" fill="none" [attr.stroke]="seg.color" stroke-width="16"
+                  [attr.stroke-dasharray]="seg.dash + ' ' + (circumference - seg.dash)"
+                  [attr.stroke-dashoffset]="seg.offset" stroke-linecap="butt" />
+              }
+            </g>
+            <text x="70" y="66" text-anchor="middle" class="donut-num">{{ claimsTotal() }}</text>
+            <text x="70" y="86" text-anchor="middle" class="donut-cap">au total</text>
+          </svg>
+          <ul class="legend">
+            @for (seg of claimSegments(); track seg.label) {
+              <li><span class="dot" [style.background]="seg.color"></span>{{ seg.label }} <b>{{ seg.count }}</b></li>
+            }
+          </ul>
+        </div>
+      } @else { <p class="muted">Aucune réclamation.</p> }
+    </section>
+
+    <!-- Revenus par mois -->
+    <section class="chart-card wide">
+      <h3>Revenus des 12 derniers mois</h3>
+      @if (s.revenueByMonth.length) {
+        <div class="months">
+          @for (m of s.revenueByMonth; track m.month) {
+            <div class="month" [title]="money(m.revenue)">
+              <div class="month-bar-wrap">
+                <div class="month-bar" [style.height.%]="barHeight(m.revenue)"></div>
+              </div>
+              <span class="month-label">{{ monthLabel(m.month) }}</span>
+            </div>
+          }
+        </div>
+      } @else { <p class="muted">Aucun revenu enregistré.</p> }
+    </section>
+
+    <!-- Colis par région -->
+    <section class="chart-card">
+      <h3>Colis par région</h3>
+      @if (s.ordersByRegion.length) {
+        <div class="bars">
+          @for (r of s.ordersByRegion; track r.region) {
+            <div class="bar-row">
+              <span class="bar-label">{{ r.region }}</span>
+              <div class="bar-track">
+                <div class="bar-fill navy" [style.width.%]="r.count / maxRegion() * 100"></div>
+              </div>
+              <span class="bar-value">{{ r.count }}</span>
+            </div>
+          }
+        </div>
+      } @else { <p class="muted">Aucune donnée.</p> }
+    </section>
+
+    <!-- Top bureaux -->
+    <section class="chart-card">
+      <h3>Top bureaux</h3>
+      @if (s.ordersByBureau.length) {
+        <div class="bars">
+          @for (r of s.ordersByBureau; track r.bureau) {
+            <div class="bar-row">
+              <span class="bar-label">{{ r.bureau }}</span>
+              <div class="bar-track">
+                <div class="bar-fill teal" [style.width.%]="r.count / maxBureau() * 100"></div>
+              </div>
+              <span class="bar-value">{{ r.count }}</span>
+            </div>
+          }
+        </div>
+      } @else { <p class="muted">Aucune donnée.</p> }
+    </section>
+
+    <!-- Revenus par mode de paiement -->
+    <section class="chart-card">
+      <h3>Revenus par mode de paiement</h3>
+      @if (s.revenueByMethod.length) {
+        <ul class="method-list">
+          @for (r of s.revenueByMethod; track r.method) {
+            <li>
+              <span class="method-name">{{ methodLabel(r.method) }}</span>
+              <span class="method-count">{{ r.count }} op.</span>
+              <b class="method-rev">{{ money(r.revenue) }}</b>
+            </li>
+          }
+        </ul>
+      } @else { <p class="muted">Aucun paiement.</p> }
+    </section>
+  </div>
+}

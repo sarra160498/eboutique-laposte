@@ -1,0 +1,155 @@
+@if (user(); as u) {
+  <section class="profile">
+    <div class="head">
+      <span class="kicker">{{ isStaff() ? 'Espace pro' : 'Espace client' }}</span>
+      <h1>Mon profil</h1>
+    </div>
+
+    <div class="grid">
+      <!-- Carte identité : photo + nom -->
+      <div class="id-card">
+        <div class="avatar">
+          @if (u.avatar) {
+            <img [src]="u.avatar" alt="Photo de profil">
+          } @else {
+            <span class="initials">{{ initials() }}</span>
+          }
+          <label class="edit" [class.busy]="uploading()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+            <input type="file" accept="image/*" (change)="onPhoto($event)" hidden>
+          </label>
+        </div>
+
+        <h2 class="name">{{ u.firstName }} {{ u.lastName }}</h2>
+        <p class="mail">{{ u.email }}</p>
+
+        @if (u.avatar) {
+          <button type="button" class="remove" (click)="removePhoto()">Retirer la photo</button>
+        }
+        @if (error()) { <p class="err">{{ error() }}</p> }
+      </div>
+
+      <!-- Informations d'identité : CIN et téléphone modifiables par le titulaire -->
+      <div class="infos">
+        <div class="infos-head">
+          <h3>Mes informations</h3>
+          @if (!editInfo()) {
+            <button type="button" class="edit-info" (click)="startEdit()">Modifier</button>
+          }
+        </div>
+
+        @if (infoSaved()) { <p class="ok">Informations enregistrées.</p> }
+
+        @if (editInfo()) {
+          <div class="edit-form">
+            <label>Numéro CIN
+              <input #ci [value]="cinInput()" (input)="cinInput.set(ci.value)"
+                     maxlength="8" inputmode="numeric" placeholder="8 chiffres (ex. 09123456)">
+            </label>
+            <label>Téléphone
+              <input #ph [value]="phoneInput()" (input)="phoneInput.set(ph.value)"
+                     maxlength="8" inputmode="numeric" placeholder="8 chiffres (ex. 52123456)">
+            </label>
+            @if (infoError()) { <p class="err">{{ infoError() }}</p> }
+            <div class="edit-actions">
+              <button type="button" class="btn-save" [disabled]="savingInfo()" (click)="saveInfo()">
+                {{ savingInfo() ? 'Enregistrement…' : 'Enregistrer' }}
+              </button>
+              <button type="button" class="btn-cancel" (click)="cancelEdit()">Annuler</button>
+            </div>
+          </div>
+        } @else {
+          <ul>
+            @if (isStaff()) {
+              <li><span>Fonction</span><b>{{ roleLabel() }}</b></li>
+            }
+            <li><span>Numéro CIN</span><b [class.todo]="!u.cin">{{ u.cin || 'À renseigner' }}</b></li>
+            <li><span>Téléphone</span><b [class.todo]="!u.phone">{{ u.phone || 'À renseigner' }}</b></li>
+            @if (!isStaff()) {
+              <!-- Champs bancaires propres au client (e-Dinar / CCP). -->
+              <li><span>Code e-Dinar</span><b>{{ u.edinarCode || '—' }}</b></li>
+              <li><span>Numéro CCP</span><b>{{ u.ccp || '—' }}</b></li>
+            }
+          </ul>
+        }
+      </div>
+    </div>
+
+    @if (isStaff()) {
+      <!-- Équipes d'affectation du membre du personnel. -->
+      <h3 class="section-title">Mes équipes</h3>
+      @if (myTeams().length) {
+        <div class="teams-grid">
+          @for (t of myTeams(); track t.id) {
+            <div class="team-card">
+              <div class="team-head">
+                <strong>{{ t.name }}</strong>
+                @if (t.isResponsible) { <span class="tag resp">Responsable</span> }
+              </div>
+              @if (t.description) { <p class="team-desc">{{ t.description }}</p> }
+              <p class="team-resp">Responsable : <b>{{ t.responsibleName || '—' }}</b></p>
+            </div>
+          }
+        </div>
+      } @else {
+        <p class="muted no-team">Vous n'êtes affecté à aucune équipe pour le moment.</p>
+      }
+    }
+
+    @if (isStaff()) {
+      <!-- Accès rapides de l'espace pro (outils de travail). -->
+      <h3 class="section-title">Espace pro</h3>
+      <nav class="quick-links">
+        <a routerLink="/pro">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Espace pro
+        </a>
+        <a routerLink="/messagerie">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Messagerie interne
+        </a>
+        <a routerLink="/annuaire">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Annuaire du personnel
+        </a>
+        @if (canHandleClaims() && !hasAdminAccess()) {
+          <a routerLink="/reclamations-pro">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+            Traitement des réclamations
+          </a>
+        }
+        @if (hasAdminAccess()) {
+          <a routerLink="/admin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/></svg>
+            Administration
+          </a>
+        }
+      </nav>
+    } @else {
+      <!-- Accès rapides de l'espace client -->
+      <h3 class="section-title">Espace client</h3>
+      <nav class="quick-links">
+        <a routerLink="/mes-commandes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+          Mes commandes & dépôts
+        </a>
+        <a routerLink="/reclamations">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+          Mes réclamations
+        </a>
+        <a routerLink="/deposer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          Déposer un colis
+        </a>
+        <a routerLink="/suivi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>
+          Suivre un colis
+        </a>
+        <a routerLink="/e-dinar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          Guichet e-Dinar
+        </a>
+      </nav>
+    }
+  </section>
+}

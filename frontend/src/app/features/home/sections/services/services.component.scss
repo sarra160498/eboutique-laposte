@@ -1,0 +1,55 @@
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.svc {
+  display: block;
+  background: #fff;
+  border: 2px solid var(--ink);
+  padding: 26px 22px;
+  position: relative;
+  transition: .25s var(--ease);
+}
+.svc.clickable { cursor: pointer; }
+.svc:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--ink); }
+
+.ic {
+  width: 52px;
+  height: 52px;
+  border: 2px solid var(--ink);
+  display: grid;
+  place-items: center;
+  color: var(--bleu);
+  margin-bottom: 16px;
+  transition: .25s;
+}
+.svc:hover .ic { background: var(--bleu); color: var(--jaune); }
+.ic svg { width: 25px; height: 25px; }
+
+h4 {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 16.5px;
+  margin-bottom: 6px;
+  color: var(--bleu);
+}
+p { font-size: 13px; color: var(--ink-soft); }
+
+.num {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 15px;
+  color: var(--line);
+}
+
+@media (max-width: 1000px) {
+  .svc-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .svc-grid { grid-template-columns: 1fr; }
+}

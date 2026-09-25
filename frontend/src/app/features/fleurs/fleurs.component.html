@@ -1,0 +1,144 @@
+<section class="section">
+  <div class="wrap">
+
+    <!-- En-tête -->
+    <div class="head">
+      <span class="kicker">Fleurs de la Poste</span>
+      <h2>Offrir des fleurs, <em>même à distance</em></h2>
+      <p>
+        Commandez un bouquet de fleurs naturelles et faites-le livrer partout en Tunisie.
+        Ajoutez une carte de vœux personnalisée pour toutes vos occasions.
+      </p>
+    </div>
+
+    <!-- ── ÉTAPE 1 : Catalogue ── -->
+    @if (step() === 'catalogue') {
+      <div class="grid">
+        @for (bouquet of bouquets(); track bouquet.id) {
+          <article class="card" (click)="selectBouquet(bouquet)">
+            <div class="card-img">
+              <span [innerHTML]="flowerIcon"></span>
+            </div>
+            <div class="card-body">
+              @if (bouquet.badge) {
+                <span class="badge">{{ bouquet.badge }}</span>
+              }
+              <h3>{{ bouquet.name }}</h3>
+              <p>{{ bouquet.description }}</p>
+              <div class="card-footer">
+                <strong>{{ bouquet.price | dinar }}</strong>
+                <button type="button" class="btn-primary">Commander</button>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    }
+
+    <!-- ── ÉTAPE 2 : Formulaire de livraison ── -->
+    @if (step() === 'form') {
+      <div class="tunnel">
+        <button class="back" type="button" (click)="back()">← Retour</button>
+
+        <div class="recap">
+          <strong>Bouquet sélectionné :</strong> {{ selected()?.name }} —
+          <span>{{ (selected()?.price ?? 0) | dinar }}</span>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="goToPayment()" class="form-grid">
+
+          <fieldset>
+            <legend>Destinataire</legend>
+            <div class="field">
+              <label for="recipientName">Nom complet du destinataire *</label>
+              <input id="recipientName" formControlName="recipientName" placeholder="ex. Sarra Ben Ayed" />
+              @if (form.controls.recipientName.touched && form.controls.recipientName.invalid) {
+                <span class="err">Ce champ est obligatoire.</span>
+              }
+            </div>
+            <div class="field">
+              <label for="recipientPhone">Téléphone du destinataire *</label>
+              <input id="recipientPhone" formControlName="recipientPhone" placeholder="ex. 55 123 456" />
+              @if (form.controls.recipientPhone.touched && form.controls.recipientPhone.invalid) {
+                <span class="err">Ce champ est obligatoire.</span>
+              }
+            </div>
+            <div class="field">
+              <label for="address">Adresse de livraison *</label>
+              <input id="address" formControlName="address" placeholder="ex. 12 rue de la République" />
+              @if (form.controls.address.touched && form.controls.address.invalid) {
+                <span class="err">Ce champ est obligatoire.</span>
+              }
+            </div>
+            <div class="field">
+              <label for="city">Ville *</label>
+              <input id="city" formControlName="city" placeholder="ex. Ariana" />
+              @if (form.controls.city.touched && form.controls.city.invalid) {
+                <span class="err">Ce champ est obligatoire.</span>
+              }
+            </div>
+          </fieldset>
+
+          <fieldset class="card-fieldset">
+            <legend>Carte de vœux (optionnelle)</legend>
+            <label class="toggle">
+              <input type="checkbox" formControlName="withCard" />
+              <span>Ajouter une carte de vœux personnalisée (+&nbsp;{{ CARD_PRICE | dinar }})</span>
+            </label>
+            @if (form.controls.withCard.value) {
+              <div class="field">
+                <label for="cardMessage">Votre message</label>
+                <textarea id="cardMessage" formControlName="cardMessage" rows="3"
+                  placeholder="ex. Joyeux anniversaire ! Avec toute mon affection…"></textarea>
+              </div>
+            }
+          </fieldset>
+
+          <div class="actions">
+            <div class="total-line">
+              Total :
+              <strong>{{ total() | dinar }}</strong>
+              @if (form.controls.withCard.value) {
+                <small>(bouquet + carte de vœux)</small>
+              }
+            </div>
+            <button type="submit" class="btn-primary">Choisir le paiement →</button>
+          </div>
+
+        </form>
+      </div>
+    }
+
+    <!-- ── ÉTAPE 3 : Paiement ── -->
+    @if (step() === 'payment') {
+      <div class="tunnel">
+        <button class="back" type="button" (click)="back()">← Retour</button>
+
+        <div class="payment-box">
+          <h3>Récapitulatif</h3>
+          <ul class="recap-list">
+            <li>{{ selected()?.name }}</li>
+            <li>Livraison : {{ form.controls.city.value }}</li>
+            @if (form.controls.withCard.value) {
+              <li>Carte de vœux incluse</li>
+            }
+          </ul>
+
+          <div class="total-line big">
+            Total à régler : <strong>{{ total() | dinar }}</strong>
+          </div>
+
+          <div class="pay-methods">
+            <button type="button" class="btn-primary" (click)="confirm('online')">
+              💳 Payer en ligne (e-Dinar)
+            </button>
+            <button type="button" class="btn-secondary" (click)="confirm('onsite')">
+              🏢 Payer au guichet
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+  </div>
+</section>

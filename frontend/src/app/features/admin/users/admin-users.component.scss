@@ -1,0 +1,36 @@
+/* Sous-onglets par rôle. */
+.role-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.role-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  transition: .15s var(--ease);
+}
+.role-tabs button:hover { background: var(--wash); }
+.role-tabs button.on { background: var(--bleu); color: #fff; border-color: var(--bleu); }
+.badge-count {
+  font-size: 11px;
+  font-weight: 800;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: var(--wash-2);
+  color: var(--bleu);
+}
+.role-tabs button.on .badge-count { background: rgba(255, 255, 255, .25); color: #fff; }
+
+.ta-end { text-align: end; }
+.row-actions.end { justify-content: flex-end; }
+
+/* Ligne en cours de modification : on la met subtilement en avant. */
+tr.editing { background: var(--wash); }
+tr.editing td { border-bottom-color: var(--bleu); }

@@ -1,0 +1,95 @@
+<section class="auth-wrap">
+  <div class="auth-card">
+    <span class="kicker">Espace client</span>
+    <h1>Créer un compte</h1>
+    <p class="sub">Rejoignez l'e-Boutique pour commander, déposer et suivre vos colis.</p>
+
+    @if (done()) {
+      <div class="auth-info">
+        <p>{{ done() }}</p>
+        <p>Vérifiez votre boîte de réception et cliquez sur le lien de confirmation pour activer votre compte.</p>
+      </div>
+      <p class="auth-switch">
+        <a routerLink="/connexion">Aller à la connexion</a>
+      </p>
+    } @else {
+
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
+      @if (error()) {
+        <div class="auth-error">{{ error() }}</div>
+      }
+
+      <div class="two">
+        <label>
+          <span>Prénom</span>
+          <input type="text" formControlName="firstName" placeholder="Sarra" autocomplete="given-name">
+          @if (form.controls.firstName.touched && form.controls.firstName.invalid) {
+            <em class="err">Champ obligatoire</em>
+          }
+        </label>
+        <label>
+          <span>Nom</span>
+          <input type="text" formControlName="lastName" placeholder="Ben Ayed" autocomplete="family-name">
+          @if (form.controls.lastName.touched && form.controls.lastName.invalid) {
+            <em class="err">Champ obligatoire</em>
+          }
+        </label>
+      </div>
+
+      <div class="two">
+        <label>
+          <span>CIN</span>
+          <input type="text" inputmode="numeric" formControlName="cin" placeholder="0X XXX XXX" autocomplete="off" maxlength="8">
+          @if (form.controls.cin.touched && form.controls.cin.invalid) {
+            <em class="err">8 chiffres, commence par 0 ou 1</em>
+          }
+        </label>
+        <label>
+          <span>Téléphone</span>
+          <input type="tel" inputmode="numeric" formControlName="phone" placeholder="52 123 456" autocomplete="tel" maxlength="8">
+          @if (form.controls.phone.touched && form.controls.phone.invalid) {
+            <em class="err">8 chiffres (52, 53, 54, 55, 40, 41)</em>
+          }
+        </label>
+      </div>
+
+      <label>
+        <span>Numéro CCP <small>(facultatif)</small></span>
+        <input type="text" inputmode="numeric" formControlName="ccp" placeholder="RIP à 20 chiffres" autocomplete="off" maxlength="20">
+        @if (form.controls.ccp.touched && form.controls.ccp.invalid) {
+          <em class="err">Le RIP contient 20 chiffres</em>
+        }
+      </label>
+
+      <label>
+        <span>Code e-Dinar <small>(généré depuis la CIN)</small></span>
+        <input type="text" formControlName="edinarCode" placeholder="Renseigné automatiquement" readonly>
+      </label>
+
+      <label>
+        <span>Email</span>
+        <input type="email" formControlName="email" placeholder="sarra@example.tn" autocomplete="email">
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <em class="err">Email invalide</em>
+        }
+      </label>
+
+      <label>
+        <span>Mot de passe</span>
+        <input type="password" formControlName="password" placeholder="6 caractères minimum" autocomplete="new-password">
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+          <em class="err">6 caractères minimum</em>
+        }
+      </label>
+
+      <button class="auth-submit" type="submit" [disabled]="loading()">
+        {{ loading() ? 'Création…' : 'Créer mon compte' }}
+      </button>
+    </form>
+
+    <p class="auth-switch">
+      Déjà inscrit ? <a routerLink="/connexion">Se connecter</a>
+    </p>
+    }
+  </div>
+</section>

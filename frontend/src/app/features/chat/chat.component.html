@@ -1,0 +1,69 @@
+<section class="section">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">Messagerie interne</span>
+      <h2>Messagerie <span class="ar">المراسلة</span></h2>
+      <p>Échanges chiffrés entre collègues. Conservation des messages : 180 jours.</p>
+    </div>
+
+    <div class="chat">
+      <!-- Conversations existantes : recherche + liste -->
+      <aside class="contacts">
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input #q [value]="search()" (input)="search.set(q.value)"
+                 placeholder="Rechercher une conversation…"
+                 aria-label="Rechercher une conversation">
+          @if (search()) {
+            <button type="button" class="clear" (click)="search.set('')" aria-label="Effacer">×</button>
+          }
+        </div>
+
+        @for (c of filteredContacts(); track c.id) {
+          <button type="button" class="contact" [class.on]="active()?.id === c.id" (click)="open(c)">
+            <span class="avatar">{{ c.firstName.charAt(0) }}{{ c.lastName.charAt(0) }}</span>
+            <span class="who">
+              <strong>{{ c.firstName }} {{ c.lastName }}</strong>
+              <small>{{ roleLabel[c.role] }} · {{ location(c) }}</small>
+            </span>
+          </button>
+        } @empty {
+          <p class="muted pad">
+            @if (search()) { Aucun résultat pour « {{ search() }} ». }
+            @else { Aucune conversation. Rendez-vous dans l'annuaire pour contacter un collègue. }
+          </p>
+        }
+      </aside>
+
+      <!-- Conversation -->
+      <div class="thread">
+        @if (active(); as c) {
+          <div class="thread-head">
+            <strong>{{ c.firstName }} {{ c.lastName }}</strong>
+            <span>{{ roleLabel[c.role] }} · {{ location(c) }}</span>
+          </div>
+
+          <div class="bubbles">
+            @for (m of messages(); track m.id) {
+              <div class="bubble" [class.mine]="m.fromMe">
+                <p>{{ m.content }}</p>
+                <time>{{ m.createdAt | date:'dd/MM HH:mm' }}</time>
+              </div>
+            } @empty {
+              <p class="muted pad">Démarrez la conversation.</p>
+            }
+          </div>
+
+          <div class="composer">
+            <input #box [value]="draft()" (input)="draft.set(box.value)" (keyup.enter)="send()" placeholder="Écrire un message…" aria-label="Message">
+            <button type="button" class="btn-sm primary" (click)="send()">Envoyer</button>
+          </div>
+        } @else {
+          <div class="empty-thread">
+            <p>Sélectionnez un collègue pour démarrer une conversation.</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

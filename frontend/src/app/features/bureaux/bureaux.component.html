@@ -1,0 +1,52 @@
+<section class="section">
+  <div class="wrap">
+
+    <div class="head">
+      <span class="kicker">Réseau · Dépôt</span>
+      <h2>Déposer un colis <span class="ar">إيداع</span></h2>
+      <p>Choisissez le bureau de poste le plus proche sur la carte, puis lancez votre dépôt en quelques clics.</p>
+    </div>
+
+    <div class="layout">
+
+      <!-- Colonne de gauche : recherche + liste -->
+      <aside class="panel">
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input
+            #q
+            [value]="query()"
+            (input)="query.set(q.value)"
+            placeholder="Rechercher une ville, un gouvernorat...">
+        </div>
+
+        <p class="count">{{ filtered().length }} bureau(x)</p>
+
+        <ul class="list">
+          @for (bureau of filtered(); track bureau.id) {
+            <li>
+              <button type="button" (click)="focusBureau(bureau)">
+                <strong>{{ bureau.name }}</strong>
+                <span>{{ bureau.address }} · {{ bureau.city }}</span>
+              </button>
+            </li>
+          } @empty {
+            <li class="none">Aucun bureau ne correspond à votre recherche.</li>
+          }
+        </ul>
+      </aside>
+
+      <!-- Colonne de droite : carte -->
+      <div class="map" #mapEl></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Formulaire de dépôt (affiché uniquement quand un bureau est choisi) -->
+@if (formBureau(); as bureau) {
+  <app-deposit-form
+    [bureau]="bureau"
+    (confirmed)="onDeposit($event)"
+    (close)="closeForm()" />
+}

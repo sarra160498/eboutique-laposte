@@ -1,0 +1,67 @@
+<div class="panel">
+  <h3>{{ editingId() === null ? 'Ajouter un produit' : 'Modifier le produit' }}</h3>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-grid">
+      <label class="field">
+        <span>Catégorie</span>
+        <select formControlName="category">
+          @for (cat of categories; track cat) {
+            <option [value]="cat">{{ cat }}</option>
+          }
+        </select>
+      </label>
+      <label class="field">
+        <span>Libellé de catégorie</span>
+        <input type="text" formControlName="categoryLabel" placeholder="Philatélie">
+      </label>
+      <label class="field">
+        <span>Nom</span>
+        <input type="text" formControlName="name" placeholder="Carnet de timbres">
+      </label>
+      <label class="field">
+        <span>Prix (DT)</span>
+        <input type="number" formControlName="price" min="0" step="0.1">
+      </label>
+      <label class="field" style="grid-column: 1 / -1">
+        <span>Description</span>
+        <input type="text" formControlName="description" placeholder="Description courte">
+      </label>
+      <label class="field">
+        <span>Badge (optionnel)</span>
+        <input type="text" formControlName="badge" placeholder="Nouveau">
+      </label>
+      <div class="row-actions">
+        <button class="btn-sm primary" type="submit">{{ editingId() === null ? 'Ajouter' : 'Enregistrer' }}</button>
+        @if (editingId() !== null) {
+          <button class="btn-sm" type="button" (click)="resetForm()">Annuler</button>
+        }
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="panel">
+  <h3>Catalogue ({{ products().length }})</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Nom</th><th>Catégorie</th><th>Prix</th><th>Badge</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      @for (product of products(); track product.id) {
+        <tr>
+          <td class="name">{{ product.name }}</td>
+          <td>{{ product.categoryLabel }}</td>
+          <td>{{ product.price | dinar }}</td>
+          <td>{{ product.badge ?? '—' }}</td>
+          <td>
+            <div class="row-actions">
+              <button class="btn-sm" type="button" (click)="edit(product)">Modifier</button>
+              <button class="btn-sm danger" type="button" (click)="remove(product)">Supprimer</button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

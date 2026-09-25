@@ -1,0 +1,184 @@
+<div class="overlay" (click)="close.emit()"></div>
+
+<div class="modal" role="dialog" aria-label="Déposer un colis">
+  <div class="head">
+    <div>
+      <span class="kicker">Déposer un colis</span>
+      <h3>{{ bureau().name }}</h3>
+      <p class="addr">{{ bureau().address }} · {{ bureau().city }}</p>
+    </div>
+    <button class="close" type="button" (click)="close.emit()" aria-label="Fermer">×</button>
+  </div>
+
+  <!-- ÉTAPE 1 : saisie des informations du colis -->
+  @if (step() === 'form') {
+    <form [formGroup]="form" (ngSubmit)="goToPayment()" class="body">
+
+      <div class="two">
+        <label>
+          <span>Prénom</span>
+          <input type="text" formControlName="firstName" placeholder="Sarra">
+          @if (form.controls.firstName.touched && form.controls.firstName.invalid) {
+            <em class="err">Champ obligatoire</em>
+          }
+        </label>
+        <label>
+          <span>Nom</span>
+          <input type="text" formControlName="lastName" placeholder="Ben Ayed">
+          @if (form.controls.lastName.touched && form.controls.lastName.invalid) {
+            <em class="err">Champ obligatoire</em>
+          }
+        </label>
+      </div>
+
+      <div class="two">
+        <label>
+          <span>Poids du colis (kg)</span>
+          <input type="number" formControlName="weightKg" min="0.1" step="0.1">
+          @if (form.controls.weightKg.touched && form.controls.weightKg.invalid) {
+            <em class="err">Poids invalide</em>
+          }
+        </label>
+        <label>
+          <span>Type d'envoi</span>
+          <select formControlName="scope">
+            <option value="national">National (Tunisie)</option>
+            <option value="international">International (étranger)</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="dims">
+        <span class="dims-label">Dimensions (cm)</span>
+        <div class="three">
+          <label>
+            <span>Longueur</span>
+            <input type="number" formControlName="length" min="1" step="1">
+          </label>
+          <label>
+            <span>Largeur</span>
+            <input type="number" formControlName="width" min="1" step="1">
+          </label>
+          <label>
+            <span>Hauteur</span>
+            <input type="number" formControlName="height" min="1" step="1">
+          </label>
+        </div>
+      </div>
+
+      <label>
+        <span>Destination complète</span>
+        <input type="text" formControlName="destination" placeholder="ex. 12 Avenue de la Liberté">
+        @if (form.controls.destination.touched && form.controls.destination.invalid) {
+          <em class="err">Champ obligatoire</em>
+        }
+      </label>
+
+      <div class="two">
+        <label>
+          <span>Code postal</span>
+          <input type="text" formControlName="postalCode" placeholder="ex. 3000">
+          @if (form.controls.postalCode.touched && form.controls.postalCode.invalid) {
+            <em class="err">Champ obligatoire</em>
+          }
+        </label>
+        <label>
+          <span>Ville</span>
+          <input type="text" formControlName="city" placeholder="ex. Sfax">
+          @if (form.controls.city.touched && form.controls.city.invalid) {
+            <em class="err">Champ obligatoire</em>
+          }
+        </label>
+      </div>
+
+      @if (scope() === 'international') {
+        <label>
+          <span>Pays</span>
+          <input type="text" formControlName="country" placeholder="ex. France">
+          @if (form.controls.country.touched && form.controls.country.invalid) {
+            <em class="err">Champ obligatoire</em>
+          }
+        </label>
+      } @else {
+        <label>
+          <span>Gouvernorat de destination</span>
+          <select formControlName="destinationGovernorate">
+            <option value="">— Choisir —</option>
+            @for (gov of governorates(); track gov) {
+              <option [value]="gov">{{ gov }}</option>
+            }
+          </select>
+          @if (form.controls.destinationGovernorate.touched && form.controls.destinationGovernorate.invalid) {
+            <em class="err">Champ obligatoire</em>
+          }
+        </label>
+      }
+
+      <label class="check">
+        <input type="checkbox" formControlName="urgent">
+        <span>Envoi urgent — Rapid-Poste express (24/48h)</span>
+      </label>
+
+      <!-- Estimation des frais d'envoi en temps réel -->
+      <div class="estimate">
+        <div class="estimate-head">
+          <span>Frais d'envoi estimés</span>
+          @if (estimating()) {
+            <small>Calcul…</small>
+          } @else if (quote()) {
+            <strong>{{ quote()!.total | dinar }}</strong>
+          } @else {
+            <small>—</small>
+          }
+        </div>
+        @if (quote(); as q) {
+          <ul class="estimate-detail">
+            <li><span>Zone</span><span>{{ q.zoneLabel }}</span></li>
+            <li><span>Poids facturé</span><span>{{ q.billedKg }} kg
+              @if (q.volumetricWeightKg > q.realWeightKg) { <em>(volumétrique)</em> }</span></li>
+            <li><span>Base</span><span>{{ q.basePrice | dinar }}</span></li>
+            <li><span>Poids ({{ q.billedKg }} × {{ q.pricePerKg | dinar }})</span><span>{{ q.weightCost | dinar }}</span></li>
+            @if (q.urgent) {
+              <li><span>Majoration express ×{{ q.urgentMultiplier }}</span><span>+{{ (q.total - q.subtotal) | dinar }}</span></li>
+            }
+          </ul>
+        }
+      </div>
+
+      <button class="submit" type="submit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        Confirmer le dépôt
+      </button>
+    </form>
+  }
+
+  <!-- ÉTAPE 2 : choix du mode de paiement -->
+  @if (step() === 'payment') {
+    <div class="body pay-step">
+      <div class="recap">
+        <span>Montant à payer</span>
+        <strong>{{ amount() | dinar }}</strong>
+      </div>
+
+      <p class="pay-intro">Comment souhaitez-vous régler ce dépôt&nbsp;?</p>
+
+      <button class="pay-choice online" type="button" (click)="choosePayment('online')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="1"/><path d="M2 10h20"/></svg>
+        <span>
+          <b>Payer en ligne</b>
+          <small>Guichet e-Dinar sécurisé</small>
+        </span>
+      </button>
+
+      <button class="pay-choice onsite" type="button" (click)="choosePayment('onsite')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>
+          <b>Payer sur place</b>
+          <small>Au guichet du bureau de poste</small>
+        </span>
+      </button>
+
+      <button class="back" type="button" (click)="step.set('form')">← Modifier les informations</button>
+    </div>
+  }
+</div>

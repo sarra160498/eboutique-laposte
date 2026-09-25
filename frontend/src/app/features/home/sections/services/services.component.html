@@ -1,0 +1,24 @@
+<section class="section" id="services" style="padding-bottom: 0">
+  <div class="head" appReveal>
+    <span class="kicker">Le réseau, en ligne</span>
+    <h2>Des services, pas que des timbres</h2>
+  </div>
+
+  <div class="svc-grid" appReveal>
+    @for (service of services; track service.number) {
+      <a class="svc" [class.clickable]="service.link" [routerLink]="service.link">
+        <span class="num">{{ service.number }}</span>
+        <div class="ic">
+          @switch (service.icon) {
+            @case ('colis')  { <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg> }
+            @case ('carte')  { <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg> }
+            @case ('mandat') { <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg> }
+            @case ('bureau') { <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg> }
+          }
+        </div>
+        <h4>{{ service.title }}</h4>
+        <p>{{ service.text }}</p>
+      </a>
+    }
+  </div>
+</section>

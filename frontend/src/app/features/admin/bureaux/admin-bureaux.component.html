@@ -1,0 +1,63 @@
+<div class="panel">
+  <h3>{{ editingId() === null ? 'Ajouter un bureau' : 'Modifier le bureau' }}</h3>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-grid">
+      <label class="field">
+        <span>Nom</span>
+        <input type="text" formControlName="name" placeholder="Bureau de Poste ...">
+      </label>
+      <label class="field">
+        <span>Adresse</span>
+        <input type="text" formControlName="address" placeholder="Avenue Habib Bourguiba">
+      </label>
+      <label class="field">
+        <span>Ville</span>
+        <input type="text" formControlName="city" placeholder="Sfax">
+      </label>
+      <label class="field">
+        <span>Gouvernorat</span>
+        <input type="text" formControlName="governorate" placeholder="Sfax">
+      </label>
+      <label class="field">
+        <span>Latitude</span>
+        <input type="number" formControlName="lat" step="0.0001">
+      </label>
+      <label class="field">
+        <span>Longitude</span>
+        <input type="number" formControlName="lng" step="0.0001">
+      </label>
+      <div class="row-actions">
+        <button class="btn-sm primary" type="submit">{{ editingId() === null ? 'Ajouter' : 'Enregistrer' }}</button>
+        @if (editingId() !== null) {
+          <button class="btn-sm" type="button" (click)="resetForm()">Annuler</button>
+        }
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="panel">
+  <h3>Bureaux ({{ bureaux().length }})</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Nom</th><th>Ville</th><th>Gouvernorat</th><th>Coordonnées</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      @for (bureau of bureaux(); track bureau.id) {
+        <tr>
+          <td class="name">{{ bureau.name }}</td>
+          <td>{{ bureau.city }}</td>
+          <td>{{ bureau.governorate }}</td>
+          <td class="mono">{{ bureau.lat }}, {{ bureau.lng }}</td>
+          <td>
+            <div class="row-actions">
+              <button class="btn-sm" type="button" (click)="edit(bureau)">Modifier</button>
+              <button class="btn-sm danger" type="button" (click)="remove(bureau)">Supprimer</button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,39 @@
+.trust {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 2px solid var(--ink);
+}
+
+.item {
+  padding: 30px 24px;
+  text-align: center;
+  border-inline-end: 2px solid var(--ink);
+  background: #fff;
+}
+.item:last-child { border-inline-end: none; }
+
+h4 {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 6px;
+  color: var(--bleu);
+}
+/* On alterne bleu / jaune pour rythmer la rangée. */
+.item:nth-child(2) h4,
+.item:nth-child(4) h4 { color: var(--jaune-d); }
+
+p { font-size: 13px; color: var(--ink-soft); font-weight: 500; }
+
+@media (max-width: 1000px) {
+  .trust { grid-template-columns: 1fr 1fr; }
+  .item:nth-child(2) { border-inline-end: none; }
+  .item:nth-child(1), .item:nth-child(2) { border-bottom: 2px solid var(--ink); }
+}
+@media (max-width: 560px) {
+  .trust { grid-template-columns: 1fr; }
+  .item { border-inline-end: none; border-bottom: 2px solid var(--ink); }
+  .item:last-child { border-bottom: none; }
+}

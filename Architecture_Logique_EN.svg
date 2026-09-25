@@ -1,0 +1,68 @@
+<svg viewBox="0 0 1000 720" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif">
+<defs>
+  <marker id="ar" markerWidth="11" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 Z" fill="#1c2a5e"/></marker>
+  <marker id="aru" markerWidth="11" markerHeight="9" refX="1" refY="3" orient="auto"><path d="M8 0 L0 3 L8 6 Z" fill="#1c2a5e"/></marker>
+</defs>
+<style>
+  .ttl{ font-size:18px; font-weight:700; fill:#1f2430; text-anchor:middle; }
+  .sub{ font-size:11px; fill:#6b7280; text-anchor:middle; }
+  .layer{ font-size:14px; font-weight:700; fill:#fff; }
+  .tag{ font-size:9px; fill:#eef2fb; }
+  .box{ font-size:11px; font-weight:600; fill:#1f2430; text-anchor:middle; }
+  .bd{ font-size:9.5px; fill:#5b6270; text-anchor:middle; }
+  .fl{ font-size:10px; fill:#1c2a5e; font-weight:600; text-anchor:middle; }
+  .cc{ font-size:10px; font-weight:700; fill:#7a5a10; text-anchor:middle; }
+</style>
+<rect x="0" y="0" width="1000" height="720" fill="#ffffff"/>
+<text class="ttl" x="500" y="34">Logical Architecture — e-Boutique Tunisian Post (3-tier)</text>
+<text class="sub" x="500" y="54">Layered architecture · separation of concerns</text>
+
+<!-- Presentation layer -->
+<rect x="70" y="80" width="700" height="150" rx="8" fill="#eef2fb" stroke="#5b83c4"/>
+<rect x="70" y="80" width="210" height="150" rx="8" fill="#1c2a5e"/><text class="layer" x="90" y="112">Presentation</text><text class="tag" x="90" y="130">Layer (Client)</text><text class="tag" x="90" y="146">Angular 20 SPA</text><text class="tag" x="90" y="162">TypeScript · SCSS</text><text class="tag" x="90" y="178">Signals · RxJS</text><text class="tag" x="90" y="194">Reactive Forms</text><text class="tag" x="90" y="210">Leaflet / OSM map</text>
+<rect x="298" y="100" width="140" height="46" rx="5" fill="#fff" stroke="#8ba0c8"/><text class="box" x="368" y="120">Components</text><text class="bd" x="368" y="135">pages / UI (features)</text>
+<rect x="452" y="100" width="140" height="46" rx="5" fill="#fff" stroke="#8ba0c8"/><text class="box" x="522" y="120">Services</text><text class="bd" x="522" y="135">HttpClient · state</text>
+<rect x="606" y="100" width="140" height="46" rx="5" fill="#fff" stroke="#8ba0c8"/><text class="box" x="676" y="120">Guards / Router</text><text class="bd" x="676" y="135">auth · roles · lazy</text>
+<rect x="298" y="162" width="448" height="46" rx="5" fill="#fff" stroke="#8ba0c8"/><text class="box" x="522" y="182">Models (interfaces) · Pipes · Interceptor (JWT attached to requests)</text><text class="bd" x="522" y="197">runs in the user's browser</text>
+
+<!-- arrow -->
+<line x1="420" y1="230" x2="420" y2="272" stroke="#1c2a5e" stroke-width="1.6" marker-end="url(#ar)"/>
+<line x1="580" y1="272" x2="580" y2="230" stroke="#1c2a5e" stroke-width="1.6" marker-end="url(#ar)"/>
+<text class="fl" x="500" y="258">HTTP / REST · JSON  (JWT in header)</text>
+
+<!-- Application layer -->
+<rect x="70" y="274" width="700" height="176" rx="8" fill="#fff6e6" stroke="#d9a441"/>
+<rect x="70" y="274" width="210" height="176" rx="8" fill="#1c2a5e"/><text class="layer" x="90" y="306">Application</text><text class="tag" x="90" y="324">Layer (Server / API)</text><text class="tag" x="90" y="340">Node.js · Express</text><text class="tag" x="90" y="356">REST API :3000</text><text class="tag" x="90" y="372">JWT · bcrypt</text><text class="tag" x="90" y="388">business rules</text><text class="tag" x="90" y="404">Nodemailer · pdfkit</text>
+<rect x="298" y="294" width="140" height="48" rx="5" fill="#fff" stroke="#d9a441"/><text class="box" x="368" y="314">Routes</text><text class="bd" x="368" y="329">/auth /orders /...</text>
+<rect x="452" y="294" width="140" height="48" rx="5" fill="#fff" stroke="#d9a441"/><text class="box" x="522" y="314">Middleware</text><text class="bd" x="522" y="329">JWT · roles · CORS</text>
+<rect x="606" y="294" width="140" height="48" rx="5" fill="#fff" stroke="#d9a441"/><text class="box" x="676" y="314">Controllers</text><text class="bd" x="676" y="329">request handling</text>
+<rect x="298" y="352" width="216" height="48" rx="5" fill="#fff" stroke="#d9a441"/><text class="box" x="406" y="372">Business logic / Services</text><text class="bd" x="406" y="387">fees · status flow · claims · wallet</text>
+<rect x="530" y="352" width="216" height="48" rx="5" fill="#fff" stroke="#d9a441"/><text class="box" x="638" y="372">Utilities</text><text class="bd" x="638" y="387">mailer · invoice PDF · crypto (AES-GCM)</text>
+<rect x="298" y="410" width="448" height="30" rx="5" fill="#fdf7ea" stroke="#d9a441"/><text class="box" x="522" y="429">Data access — mysql2 pool · transactions (FOR UPDATE)</text>
+
+<!-- arrow -->
+<line x1="420" y1="450" x2="420" y2="492" stroke="#1c2a5e" stroke-width="1.6" marker-end="url(#ar)"/>
+<line x1="580" y1="492" x2="580" y2="450" stroke="#1c2a5e" stroke-width="1.6" marker-end="url(#ar)"/>
+<text class="fl" x="500" y="478">SQL queries  (TCP :3306)</text>
+
+<!-- Data layer -->
+<rect x="70" y="494" width="700" height="110" rx="8" fill="#e9f5ee" stroke="#3f9d5c"/>
+<rect x="70" y="494" width="210" height="110" rx="8" fill="#1c2a5e"/><text class="layer" x="90" y="526">Data</text><text class="tag" x="90" y="544">Layer (Persistence)</text><text class="tag" x="90" y="560">MySQL 8</text><text class="tag" x="90" y="576">relational schema</text><text class="tag" x="90" y="592">FK · constraints</text>
+<rect x="298" y="512" width="140" height="72" rx="5" fill="#fff" stroke="#3f9d5c"/><text class="box" x="368" y="540">users · teams</text><text class="bd" x="368" y="556">team_members</text><text class="bd" x="368" y="570">claims · transfers</text>
+<rect x="452" y="512" width="140" height="72" rx="5" fill="#fff" stroke="#3f9d5c"/><text class="box" x="522" y="540">orders</text><text class="bd" x="522" y="556">products</text><text class="bd" x="522" y="570">shipping_rates</text>
+<rect x="606" y="512" width="140" height="72" rx="5" fill="#fff" stroke="#3f9d5c"/><text class="box" x="676" y="540">regions · bureaux</text><text class="bd" x="676" y="556">messages</text><text class="bd" x="676" y="570">(encrypted)</text>
+
+<!-- Cross-cutting / external -->
+<rect x="800" y="80" width="160" height="524" rx="8" fill="#fbf3df" stroke="#d9a441" stroke-dasharray="5 4"/>
+<text class="cc" x="880" y="104">Cross-cutting</text>
+<rect x="818" y="118" width="124" height="52" rx="5" fill="#fff" stroke="#d9a441"/><text class="box" x="880" y="138">Security</text><text class="bd" x="880" y="153">JWT · bcrypt</text><text class="bd" x="880" y="165">2FA OTP</text>
+<rect x="818" y="180" width="124" height="46" rx="5" fill="#fff" stroke="#d9a441"/><text class="box" x="880" y="200">Validation</text><text class="bd" x="880" y="215">client + server</text>
+<rect x="818" y="236" width="124" height="46" rx="5" fill="#fff" stroke="#d9a441"/><text class="box" x="880" y="256">i18n</text><text class="bd" x="880" y="271">FR · EN · AR</text>
+<text class="cc" x="880" y="322">External services</text>
+<rect x="818" y="336" width="124" height="52" rx="5" fill="#fff" stroke="#8ba0c8"/><text class="box" x="880" y="356">SMTP</text><text class="bd" x="880" y="371">e-mail (Nodemailer)</text>
+<rect x="818" y="398" width="124" height="52" rx="5" fill="#fff" stroke="#8ba0c8"/><text class="box" x="880" y="418">OpenStreetMap</text><text class="bd" x="880" y="433">map tiles</text>
+<rect x="818" y="460" width="124" height="52" rx="5" fill="#fff" stroke="#8ba0c8"/><text class="box" x="880" y="480">e-Dinar</text><text class="bd" x="880" y="495">payment (simulated)</text>
+
+<text class="sub" x="435" y="644">Each layer talks only to the one directly below it — the presentation layer never reaches the database directly.</text>
+<text class="sub" x="435" y="662">Stateless REST API (JWT) · connection pooling · atomic transactions for money-sensitive operations.</text>
+</svg>

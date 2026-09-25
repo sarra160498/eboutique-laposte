@@ -1,0 +1,55 @@
+<section class="section">
+  <div class="wrap">
+
+    <div class="head">
+      <span class="kicker">Rapid-Poste · Suivi</span>
+      <h2>Suivre un colis <span class="ar">تتبع</span></h2>
+      <p>Saisissez votre numéro de suivi pour voir où en est votre envoi en temps réel.</p>
+    </div>
+
+    <div class="track">
+      <div class="pkg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l9 5 9-5M3 8v8l9 5 9-5V8M3 8l9-5 9 5"/></svg>
+      </div>
+
+      <div class="search">
+        <input
+          #numInput
+          [value]="query()"
+          (input)="query.set(numInput.value)"
+          (keyup.enter)="search()"
+          placeholder="ex. DEP-2025-000001"
+          aria-label="Numéro de suivi">
+        <button type="button" (click)="search()" [disabled]="loading()">
+          {{ loading() ? 'Recherche…' : 'Suivre' }}
+        </button>
+      </div>
+
+      @if (searched()) {
+        @if (pendingMessage(); as msg) {
+          <p class="not-found">{{ msg }}</p>
+        } @else if (shipment(); as envoi) {
+          <div class="result">
+            <div class="meta">
+              <span class="num">{{ envoi.trackingNumber }}</span>
+              <span class="svc">{{ envoi.service }}</span>
+            </div>
+            <ul class="timeline">
+              @for (step of envoi.steps; track step.title) {
+                <li [class]="step.state">
+                  <b>{{ step.title }}</b>
+                  {{ step.detail }}
+                </li>
+              }
+            </ul>
+          </div>
+        } @else {
+          <p class="not-found">
+            Aucun envoi trouvé pour ce numéro. Vérifiez votre saisie.
+          </p>
+        }
+      }
+    </div>
+
+  </div>
+</section>

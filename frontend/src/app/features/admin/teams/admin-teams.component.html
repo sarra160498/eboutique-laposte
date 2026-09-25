@@ -1,0 +1,101 @@
+<div class="panel">
+  <h3>Créer une équipe</h3>
+  <form [formGroup]="createForm" (ngSubmit)="createTeam()">
+    <div class="form-grid">
+      <label class="field">
+        <span>Nom</span>
+        <input type="text" formControlName="name" placeholder="Service après-vente">
+      </label>
+      <label class="field">
+        <span>Description</span>
+        <input type="text" formControlName="description" placeholder="Rôle de l'équipe">
+      </label>
+      <label class="field">
+        <span>Mission</span>
+        <select class="pretty" formControlName="mission">
+          @for (m of missions; track m) {
+            <option [value]="m">{{ missionLabel[m] }}</option>
+          }
+        </select>
+      </label>
+      <div class="row-actions">
+        <button class="btn-sm primary" type="submit">Créer</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="panel">
+  <h3>Équipes ({{ teams().length }})</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Équipe</th><th>Mission</th><th>Responsable</th><th>Membres</th><th class="ta-end">Actions</th></tr>
+    </thead>
+    <tbody>
+      @for (team of teams(); track team.id) {
+        <tr [class.editing]="selected()?.id === team.id">
+          <td class="name">{{ team.name }}</td>
+          <td>{{ missionLabel[team.mission] }}</td>
+          <td>{{ team.responsibleName ?? '—' }}</td>
+          <td>{{ team.memberCount }}</td>
+          <td class="ta-end">
+            <div class="row-actions end">
+              <button class="btn-sm primary" type="button" (click)="select(team)">Gérer</button>
+              <button class="btn-sm danger" type="button" (click)="removeTeam(team)">Supprimer</button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+@if (selected(); as team) {
+  <div class="panel">
+    <h3>{{ team.name }} — membres</h3>
+
+    <div class="form-grid">
+      <label class="field">
+        <span>Mission</span>
+        <select class="pretty" [value]="team.mission" (change)="setMission($any($event.target).value)">
+          @for (m of missions; track m) {
+            <option [value]="m">{{ missionLabel[m] }}</option>
+          }
+        </select>
+      </label>
+      <label class="field">
+        <span>Responsable</span>
+        <select class="pretty" [value]="team.responsibleUserId ?? ''" (change)="setResponsible($any($event.target).value)">
+          <option value="">— Aucun —</option>
+          @for (m of members(); track m.id) {
+            <option [value]="m.id">{{ m.firstName }} {{ m.lastName }}</option>
+          }
+        </select>
+      </label>
+      <label class="field">
+        <span>Ajouter un membre</span>
+        <select class="pretty" (change)="addMember($any($event.target).value); $any($event.target).value=''">
+          <option value="">— Choisir —</option>
+          @for (u of candidates(); track u.id) {
+            <option [value]="u.id">{{ u.firstName }} {{ u.lastName }} ({{ roleLabel[u.role] }})</option>
+          }
+        </select>
+      </label>
+    </div>
+
+    <table class="data-table" style="margin-top:14px">
+      <thead><tr><th>Membre</th><th>Rôle</th><th class="ta-end">Action</th></tr></thead>
+      <tbody>
+        @for (m of members(); track m.id) {
+          <tr>
+            <td class="name">{{ m.firstName }} {{ m.lastName }}</td>
+            <td>{{ roleLabel[m.role] }}</td>
+            <td class="ta-end"><button class="btn-sm danger" type="button" (click)="removeMember(m)">Retirer</button></td>
+          </tr>
+        } @empty {
+          <tr><td colspan="3" class="muted">Aucun membre pour l'instant.</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

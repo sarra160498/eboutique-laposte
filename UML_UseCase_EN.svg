@@ -1,0 +1,63 @@
+<svg viewBox="0 0 900 720" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif">
+<style>
+ .uc{ font-size:10px; fill:#1f2430; text-anchor:middle; }
+ .ttl{ font-size:15px; font-weight:700; fill:#1f2430; text-anchor:middle; }
+ .leg{ font-size:9.5px; fill:#6b7280; text-anchor:middle; }
+ .act{ font-size:11px; font-weight:600; fill:#1f2430; text-anchor:middle; }
+ .assoc{ stroke:#5b6270; stroke-width:0.9; fill:none; }
+ .inc{ stroke:#2e7d46; stroke-width:0.9; stroke-dasharray:4 3; fill:none; opacity:.85; }
+ .ext{ stroke:#d76a6a; stroke-width:1; stroke-dasharray:4 3; fill:none; }
+ .il{ font-size:8.5px; fill:#2e7d46; text-anchor:middle; font-style:italic; font-weight:600; }
+ .el{ font-size:8.5px; fill:#d76a6a; text-anchor:middle; font-style:italic; font-weight:600; }
+</style>
+<defs>
+ <marker id="ig" markerWidth="11" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="#2e7d46" stroke-width="1"/></marker>
+ <marker id="er" markerWidth="11" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="#d76a6a" stroke-width="1"/></marker>
+</defs>
+<rect x="0" y="0" width="900" height="720" fill="#ffffff"/>
+<text class="ttl" x="450" y="24">Use Case Diagram — e-Boutique Tunisian Post</text>
+<text class="leg" x="450" y="40">★ = added feature · - - - «include» / «extend»</text>
+<rect x="230" y="56" width="440" height="600" rx="8" fill="none" stroke="#4a5878" stroke-width="1.3"/>
+<text x="450" y="74" class="leg" fill="#4a5878" font-weight="600">e-Boutique System</text>
+<g stroke="#5b6270" stroke-width="1.4" fill="none"><circle cx="105" cy="130" r="9"/><line x1="105" y1="139" x2="105" y2="165"/><line x1="88" y1="148" x2="122" y2="148"/><line x1="105" y1="165" x2="92" y2="185"/><line x1="105" y1="165" x2="118" y2="185"/></g><text class="act" x="105" y="210">Visitor</text>
+<g stroke="#5b6270" stroke-width="1.4" fill="none"><circle cx="105" cy="395" r="9"/><line x1="105" y1="404" x2="105" y2="430"/><line x1="88" y1="413" x2="122" y2="413"/><line x1="105" y1="430" x2="92" y2="450"/><line x1="105" y1="430" x2="118" y2="450"/></g><text class="act" x="105" y="470">Customer</text>
+<g stroke="#5b6270" stroke-width="1.4" fill="none"><circle cx="795" cy="120" r="9"/><line x1="795" y1="129" x2="795" y2="155"/><line x1="778" y1="138" x2="812" y2="138"/><line x1="795" y1="155" x2="782" y2="175"/><line x1="795" y1="155" x2="808" y2="175"/></g><text class="act" x="795" y="200">Agent</text>
+<g stroke="#5b6270" stroke-width="1.4" fill="none"><circle cx="795" cy="305" r="9"/><line x1="795" y1="314" x2="795" y2="340"/><line x1="778" y1="323" x2="812" y2="323"/><line x1="795" y1="340" x2="782" y2="360"/><line x1="795" y1="340" x2="808" y2="360"/></g><text class="act" x="795" y="385">Courier</text>
+<g stroke="#5b6270" stroke-width="1.4" fill="none"><circle cx="795" cy="495" r="9"/><line x1="795" y1="504" x2="795" y2="530"/><line x1="778" y1="513" x2="812" y2="513"/><line x1="795" y1="530" x2="782" y2="550"/><line x1="795" y1="530" x2="808" y2="550"/></g><text class="act" x="795" y="575">Administrator</text>
+<ellipse cx="335" cy="100" rx="66" ry="15" fill="#eaf1fb" stroke="#5b83c4"/><text class="uc" x="335" y="104">Browse the catalog</text>
+<ellipse cx="335" cy="137" rx="66" ry="15" fill="#eaf1fb" stroke="#5b83c4"/><text class="uc" x="335" y="141">Track a parcel</text>
+<ellipse cx="335" cy="174" rx="66" ry="15" fill="#eaf1fb" stroke="#5b83c4"/><text class="uc" x="335" y="178">Chatbot assistance</text>
+<ellipse cx="335" cy="211" rx="66" ry="15" fill="#eaf1fb" stroke="#5b83c4"/><text class="uc" x="335" y="215">Sign up / Log in</text>
+<ellipse cx="335" cy="255" rx="66" ry="15" fill="#eaf1fb" stroke="#5b83c4"/><text class="uc" x="335" y="259">Manage account</text>
+<ellipse cx="335" cy="292" rx="66" ry="15" fill="#eaf1fb" stroke="#5b83c4"/><text class="uc" x="335" y="296">Buy a product</text>
+<ellipse cx="335" cy="329" rx="66" ry="15" fill="#eaf1fb" stroke="#5b83c4"/><text class="uc" x="335" y="333">Order products</text>
+<ellipse cx="335" cy="366" rx="66" ry="15" fill="#eaf1fb" stroke="#5b83c4"/><text class="uc" x="335" y="370">Drop off a parcel</text>
+<ellipse cx="335" cy="403" rx="66" ry="15" fill="#eaf1fb" stroke="#5b83c4"/><text class="uc" x="335" y="407">Pay (e-Dinar)</text>
+<ellipse cx="335" cy="440" rx="66" ry="15" fill="#fdecec" stroke="#d76a6a"/><text class="uc" x="335" y="444">★ Submit a claim</text>
+<ellipse cx="335" cy="477" rx="66" ry="15" fill="#eaf1fb" stroke="#5b83c4"/><text class="uc" x="335" y="481">View my orders / claims</text>
+<ellipse cx="565" cy="100" rx="66" ry="15" fill="#fdf2dd" stroke="#d9a441"/><text class="uc" x="565" y="104">Manage drop-offs</text>
+<ellipse cx="565" cy="137" rx="66" ry="15" fill="#fdf2dd" stroke="#d9a441"/><text class="uc" x="565" y="141">Update status</text>
+<ellipse cx="565" cy="174" rx="66" ry="15" fill="#fdecec" stroke="#d76a6a"/><text class="uc" x="565" y="178">★ Notify the customer</text>
+<ellipse cx="565" cy="211" rx="66" ry="15" fill="#fdf2dd" stroke="#d9a441"/><text class="uc" x="565" y="215">Internal messaging</text>
+<ellipse cx="565" cy="245" rx="66" ry="15" fill="#fdf2dd" stroke="#d9a441"/><text class="uc" x="565" y="249">Deliver parcel to customer</text>
+<ellipse cx="565" cy="278" rx="66" ry="15" fill="#efeafb" stroke="#8a76c4"/><text class="uc" x="565" y="282">Manage users</text>
+<ellipse cx="565" cy="315" rx="66" ry="15" fill="#efeafb" stroke="#8a76c4"/><text class="uc" x="565" y="319">Manage products / offices</text>
+<ellipse cx="565" cy="352" rx="66" ry="15" fill="#efeafb" stroke="#8a76c4"/><text class="uc" x="565" y="356">Manage orders</text>
+<ellipse cx="565" cy="389" rx="66" ry="15" fill="#efeafb" stroke="#8a76c4"/><text class="uc" x="565" y="393">Manage teams</text>
+<ellipse cx="565" cy="426" rx="66" ry="15" fill="#fdecec" stroke="#d76a6a"/><text class="uc" x="565" y="430">★ Manage pricing grid</text>
+<ellipse cx="565" cy="463" rx="66" ry="15" fill="#efeafb" stroke="#8a76c4"/><text class="uc" x="565" y="467">★ Process claims</text>
+<ellipse cx="452" cy="188" rx="46" ry="13" fill="#fdecec" stroke="#d76a6a"/><text class="uc" x="452" y="191" font-size="9">★ Verify e-mail</text>
+<ellipse cx="452" cy="223" rx="46" ry="13" fill="#fdecec" stroke="#d76a6a"/><text class="uc" x="452" y="226" font-size="9">★ 2FA verification</text>
+<ellipse cx="452" cy="260" rx="46" ry="13" fill="#fdecec" stroke="#d76a6a"/><text class="uc" x="452" y="263" font-size="9">★ Reset password</text>
+<ellipse cx="452" cy="362" rx="46" ry="13" fill="#fdecec" stroke="#d76a6a"/><text class="uc" x="452" y="365" font-size="9">★ Compute fees</text>
+<ellipse cx="410" cy="560" rx="68" ry="19" fill="#e6f4ea" stroke="#3f9d5c" stroke-width="1.4"/><text x="410" y="557" class="uc" font-weight="700" fill="#3f9d5c">Authentication</text><text x="410" y="569" class="leg" fill="#3f9d5c">(2FA for admins)</text>
+<g class="assoc"><line x1="122" y1="150" x2="269" y2="100"/><line x1="122" y1="150" x2="269" y2="137"/><line x1="122" y1="150" x2="269" y2="174"/><line x1="122" y1="150" x2="269" y2="211"/><line x1="122" y1="405" x2="269" y2="255"/><line x1="122" y1="405" x2="269" y2="292"/><line x1="122" y1="405" x2="269" y2="329"/><line x1="122" y1="405" x2="269" y2="366"/><line x1="122" y1="405" x2="269" y2="403"/><line x1="122" y1="405" x2="269" y2="440"/><line x1="122" y1="405" x2="269" y2="477"/><line x1="778" y1="132" x2="631" y2="100"/><line x1="778" y1="132" x2="631" y2="137"/><line x1="778" y1="132" x2="631" y2="174"/><line x1="778" y1="132" x2="631" y2="211"/><line x1="778" y1="315" x2="631" y2="137"/><line x1="778" y1="317" x2="631" y2="174"/><line x1="778" y1="317" x2="631" y2="245"/><line x1="778" y1="507" x2="631" y2="211"/><line x1="778" y1="507" x2="631" y2="278"/><line x1="778" y1="507" x2="631" y2="315"/><line x1="778" y1="507" x2="631" y2="352"/><line x1="778" y1="507" x2="631" y2="389"/><line x1="778" y1="507" x2="631" y2="426"/><line x1="778" y1="507" x2="631" y2="463"/></g>
+<g class="inc"><path d="M335 270 L385 543" marker-end="url(#ig)"/><path d="M335 307 L385 543" marker-end="url(#ig)"/><path d="M335 344 L385 543" marker-end="url(#ig)"/><path d="M335 381 L385 543" marker-end="url(#ig)"/><path d="M335 418 L385 543" marker-end="url(#ig)"/><path d="M335 455 L385 543" marker-end="url(#ig)"/><path d="M335 492 L385 543" marker-end="url(#ig)"/><path d="M565 115 L437 545" marker-end="url(#ig)"/><path d="M565 152 L437 545" marker-end="url(#ig)"/><path d="M565 189 L437 545" marker-end="url(#ig)"/><path d="M565 226 L437 545" marker-end="url(#ig)"/><path d="M565 293 L440 546" marker-end="url(#ig)"/><path d="M565 330 L440 546" marker-end="url(#ig)"/><path d="M565 367 L440 546" marker-end="url(#ig)"/><path d="M565 404 L440 546" marker-end="url(#ig)"/><path d="M565 441 L440 546" marker-end="url(#ig)"/><path d="M565 478 L440 546" marker-end="url(#ig)"/></g>
+<text class="il" x="300" y="470">«include»</text>
+<text class="il" x="505" y="500">«include»</text>
+<g class="ext"><line x1="406" y1="188" x2="401" y2="208" marker-end="url(#er)"/><line x1="406" y1="223" x2="401" y2="215" marker-end="url(#er)"/><line x1="406" y1="260" x2="401" y2="255" marker-end="url(#er)"/><line x1="406" y1="362" x2="401" y2="366" marker-end="url(#er)"/></g>
+<text class="el" x="452" y="330">«extend»</text>
+<text class="leg" x="450" y="686" font-style="italic">The chatbot is open to all. Every logged-in case — including Submit a claim and Process claims — «include» Authentication (2FA for admins).</text>
+<text class="leg" x="450" y="702" font-style="italic">★ extend cases: Verify e-mail, 2FA verification and Reset password extend Sign up/Log in and Manage account; Compute fees extends Drop off a parcel.</text>
+<text class="leg" x="450" y="716" font-style="italic">Staff access is granted by team mission: an « admin » team unlocks Administration, a « SAV » team unlocks Process claims.</text>
+</svg>

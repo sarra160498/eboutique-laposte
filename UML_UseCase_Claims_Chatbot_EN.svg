@@ -1,0 +1,53 @@
+<svg viewBox="0 0 820 470" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif">
+<style>
+  .uc{ font-size:10.5px; fill:#1f2430; text-anchor:middle; }
+  .ttl{ font-size:15px; font-weight:700; fill:#1f2430; text-anchor:middle; }
+  .leg{ font-size:9.5px; fill:#6b7280; text-anchor:middle; }
+  .act{ font-size:11px; font-weight:600; fill:#1f2430; text-anchor:middle; }
+  .assoc{ stroke:#5b6270; stroke-width:1; fill:none; }
+  .inc{ stroke:#2e7d46; stroke-width:1; stroke-dasharray:4 3; fill:none; }
+  .ext{ stroke:#d76a6a; stroke-width:1; stroke-dasharray:4 3; fill:none; }
+  .il{ font-size:8.5px; fill:#2e7d46; text-anchor:middle; font-style:italic; font-weight:600; }
+  .el{ font-size:8.5px; fill:#d76a6a; text-anchor:middle; font-style:italic; font-weight:600; }
+</style>
+<rect x="0" y="0" width="820" height="470" fill="#ffffff"/>
+<text class="ttl" x="410" y="26">Use Case Diagram — Claims &amp; Chatbot Assistant</text>
+<text class="leg" x="410" y="42">★ = added feature · - - - «include» / «extend»</text>
+<rect x="210" y="58" width="400" height="374" rx="8" fill="none" stroke="#4a5878" stroke-width="1.3"/>
+<text x="410" y="76" class="leg" fill="#4a5878" font-weight="600">Claims &amp; Assistant module</text>
+<!-- actors -->
+<g stroke="#5b6270" stroke-width="1.4" fill="none">
+  <circle cx="90" cy="165" r="9"/><line x1="90" y1="174" x2="90" y2="200"/><line x1="73" y1="183" x2="107" y2="183"/><line x1="90" y1="200" x2="77" y2="220"/><line x1="90" y1="200" x2="103" y2="220"/>
+  <circle cx="735" cy="315" r="9"/><line x1="735" y1="324" x2="735" y2="350"/><line x1="718" y1="333" x2="752" y2="333"/><line x1="735" y1="350" x2="722" y2="370"/><line x1="735" y1="350" x2="748" y2="370"/>
+</g>
+<text class="act" x="90" y="238">Customer</text>
+<text class="act" x="735" y="388">Administrator</text>
+<!-- cases -->
+<ellipse cx="410" cy="108" rx="86" ry="17" fill="#eaf1fb" stroke="#5b83c4"/><text class="uc" x="410" y="112">Chat with the assistant</text>
+<ellipse cx="410" cy="152" rx="86" ry="17" fill="#eaf1fb" stroke="#5b83c4"/><text class="uc" x="410" y="149">Ask about a parcel</text><text class="uc" x="410" y="160" font-size="8.5" fill="#6b7280">(status / delay)</text>
+<ellipse cx="410" cy="212" rx="86" ry="17" fill="#fdecec" stroke="#d76a6a"/><text class="uc" x="410" y="216">★ Submit a claim (damaged/lost)</text>
+<ellipse cx="410" cy="260" rx="86" ry="17" fill="#eaf1fb" stroke="#5b83c4"/><text class="uc" x="410" y="264">Track my claims</text>
+<ellipse cx="410" cy="330" rx="86" ry="17" fill="#efeafb" stroke="#8a76c4"/><text class="uc" x="410" y="334">Process claims</text>
+<ellipse cx="410" cy="398" rx="72" ry="19" fill="#e6f4ea" stroke="#3f9d5c" stroke-width="1.4"/><text class="uc" x="410" y="395" font-weight="700" fill="#3f9d5c">Authentication</text><text class="leg" x="410" y="406" fill="#3f9d5c">(2FA for admins)</text>
+<!-- extend: notify -->
+<ellipse cx="600" cy="300" rx="58" ry="16" fill="#fdecec" stroke="#d76a6a"/><text class="uc" x="600" y="298" font-size="9">★ Notify customer</text><text class="uc" x="600" y="308" font-size="8.5" fill="#6b7280">(e-mail)</text>
+<!-- associations -->
+<g class="assoc">
+  <line x1="107" y1="172" x2="324" y2="108"/>
+  <line x1="107" y1="176" x2="324" y2="150"/>
+  <line x1="107" y1="182" x2="324" y2="210"/>
+  <line x1="107" y1="188" x2="324" y2="258"/>
+  <line x1="718" y1="322" x2="496" y2="330"/>
+</g>
+<!-- include -->
+<g class="inc">
+  <path d="M400 229 Q392 320 400 379"/>
+  <path d="M410 277 Q405 330 408 379"/>
+  <path d="M420 347 Q426 360 420 379"/>
+</g>
+<text class="il" x="360" y="300">«include»</text>
+<!-- extend notify -->
+<path class="ext" d="M544 312 Q510 322 496 328"/>
+<text class="el" x="540" y="332">«extend»</text>
+<text class="leg" x="410" y="452" font-style="italic">The chatbot is open to all (parcel help); submitting/tracking a claim and processing claims require Authentication. Resolving a claim triggers an e-mail.</text>
+</svg>

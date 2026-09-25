@@ -1,0 +1,55 @@
+<svg viewBox="0 0 1240 660" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif">
+<defs>
+  <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 Z" fill="#3a3f52"/></marker>
+  <marker id="ao" markerWidth="12" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0 0 L9 3 L0 6" fill="none" stroke="#3a3f52" stroke-width="1"/></marker>
+</defs>
+<style>
+  .ttl{ font-size:16px; font-weight:700; fill:#1f2430; text-anchor:middle; }
+  .pn{ font-size:10.5px; font-weight:700; fill:#fff; text-anchor:middle; }
+  .st{ font-size:8px; font-style:italic; fill:#cdd6e6; text-anchor:middle; }
+  .life{ stroke:#b9c4d4; stroke-width:1.2; stroke-dasharray:4 4; }
+  .msg{ stroke:#3a3f52; stroke-width:1.3; fill:none; }
+  .ret{ stroke:#3a3f52; stroke-width:1.1; stroke-dasharray:5 3; fill:none; }
+  .ml{ font-size:9.5px; fill:#1f2430; text-anchor:middle; }
+  .mlg{ font-size:9.5px; fill:#1f7a52; font-weight:600; text-anchor:middle; }
+  .divl{ stroke:#8a76c4; stroke-width:1; stroke-dasharray:6 4; }
+  .dtag{ font-size:10px; font-weight:700; fill:#8a76c4; }
+  .note{ fill:#fff6d6; stroke:#d9a441; stroke-width:1; }
+  .notet{ font-size:9px; font-weight:700; fill:#7a5a10; text-anchor:middle; }
+</style>
+<rect x="0" y="0" width="1240" height="660" fill="#ffffff"/>
+<text class="ttl" x="620" y="28">Sequence Diagram — Claim &amp; Chatbot Assistant</text>
+<g>
+  <rect x="12" y="46" width="136" height="40" rx="3" fill="#1c2a5e"/><text class="st" x="80" y="63">«actor»</text><text class="pn" x="80" y="77">Customer</text>
+  <rect x="228" y="46" width="150" height="40" rx="3" fill="#1c2a5e"/><text class="st" x="303" y="63">«UI» chatbot + form</text><text class="pn" x="303" y="77">Angular SPA</text>
+  <rect x="448" y="46" width="150" height="40" rx="3" fill="#1c2a5e"/><text class="st" x="523" y="63">«control»</text><text class="pn" x="523" y="77">Claim Ctrl</text>
+  <rect x="668" y="46" width="150" height="40" rx="3" fill="#1c2a5e"/><text class="st" x="743" y="63">«entity»</text><text class="pn" x="743" y="77">DB MySQL</text>
+  <rect x="888" y="46" width="150" height="40" rx="3" fill="#1c2a5e"/><text class="st" x="963" y="63">«actor»</text><text class="pn" x="963" y="77">Administrator</text>
+  <rect x="1088" y="46" width="140" height="40" rx="3" fill="#1c2a5e"/><text class="st" x="1158" y="63">«external»</text><text class="pn" x="1158" y="77">Mailer SMTP</text>
+</g>
+<g class="life">
+  <line x1="80" y1="86" x2="80" y2="625"/><line x1="303" y1="86" x2="303" y2="625"/><line x1="523" y1="86" x2="523" y2="625"/><line x1="743" y1="86" x2="743" y2="625"/><line x1="963" y1="86" x2="963" y2="625"/><line x1="1158" y1="86" x2="1158" y2="625"/>
+</g>
+<!-- Phase A -->
+<line class="divl" x1="12" y1="112" x2="1228" y2="112"/><rect x="12" y="103" width="330" height="17" rx="3" fill="#f3f0fb"/><text class="dtag" x="20" y="115">Phase A — Chatbot assistance &amp; claim submission</text>
+<text class="ml" x="190" y="142">describes the problem (chatbot)</text><line class="msg" x1="80" y1="150" x2="303" y2="150" marker-end="url(#a)"/>
+<line class="ret" x1="303" y1="176" x2="80" y2="176" marker-end="url(#ao)"/><text class="mlg" x="190" y="172">recommends: submit a claim ★</text>
+<text class="ml" x="190" y="200">fills claim form (ref, type, description)</text><line class="msg" x1="80" y1="208" x2="303" y2="208" marker-end="url(#a)"/>
+<text class="ml" x="413" y="228">POST /claims</text><line class="msg" x1="303" y1="236" x2="523" y2="236" marker-end="url(#a)"/>
+<text class="ml" x="633" y="256">INSERT claim (status: open)</text><line class="msg" x1="523" y1="264" x2="743" y2="264" marker-end="url(#a)"/>
+<line class="ret" x1="743" y1="290" x2="523" y2="290" marker-end="url(#ao)"/><text class="ml" x="633" y="286">id</text>
+<line class="ret" x1="523" y1="316" x2="303" y2="316" marker-end="url(#ao)"/><text class="ml" x="413" y="312">201 { claim }</text>
+<line class="ret" x1="303" y1="342" x2="80" y2="342" marker-end="url(#ao)"/><text class="ml" x="190" y="338">confirmation</text>
+<rect class="note" x="20" y="350" width="120" height="20" rx="3"/><text class="notet" x="80" y="364">status: Open</text>
+<!-- Phase B -->
+<line class="divl" x1="12" y1="384" x2="1228" y2="384"/><rect x="12" y="375" width="330" height="17" rx="3" fill="#f3f0fb"/><text class="dtag" x="20" y="387">Phase B — Processing by the administrator</text>
+<text class="ml" x="633" y="414">opens the claims list</text><line class="msg" x1="963" y1="422" x2="303" y2="422" marker-end="url(#a)"/>
+<text class="ml" x="413" y="442">GET /claims/manage</text><line class="msg" x1="303" y1="450" x2="523" y2="450" marker-end="url(#a)"/>
+<text class="ml" x="633" y="470">SELECT claims</text><line class="msg" x1="523" y1="478" x2="743" y2="478" marker-end="url(#a)"/>
+<line class="ret" x1="743" y1="502" x2="523" y2="502" marker-end="url(#ao)"/><text class="ml" x="633" y="498">list</text>
+<text class="ml" x="633" y="524">set status (in review / resolved)</text><line class="msg" x1="963" y1="532" x2="303" y2="532" marker-end="url(#a)"/>
+<text class="ml" x="413" y="552">PATCH /claims/:id/status</text><line class="msg" x1="303" y1="560" x2="523" y2="560" marker-end="url(#a)"/>
+<text class="ml" x="633" y="580">UPDATE status</text><line class="msg" x1="523" y1="588" x2="743" y2="588" marker-end="url(#a)"/>
+<text class="mlg" x="843" y="606">send e-mail (status changed) ★</text><line class="msg" x1="523" y1="612" x2="1153" y2="612" marker-end="url(#a)"/>
+<line class="ret" x1="1158" y1="636" x2="80" y2="636" marker-end="url(#ao)"/>
+</svg>

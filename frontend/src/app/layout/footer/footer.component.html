@@ -1,0 +1,49 @@
+<footer class="footer">
+  <div class="wrap">
+    <div class="grid">
+
+      <!-- Colonne marque -->
+      <div>
+        <div class="brand">
+          <span class="logo"><b>POSTE</b><i>TN</i></span>
+          <strong>La Poste Tunisienne</strong>
+        </div>
+        <p class="desc">
+          L'opérateur postal national. Courrier, colis, services financiers et
+          numériques au service de tous les Tunisiens.
+        </p>
+        <div class="social">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9.5c0-.3.2-.5.5-.5H14z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="X">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3h3l-7 8 8 10h-6l-5-6-5 6H2l8-9L2 3h6l4 5z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Colonnes de liens -->
+      @for (column of columns; track column.title) {
+        <div>
+          <h5>{{ column.title }}</h5>
+          <ul>
+            @for (link of column.links; track link) {
+              <li><a href="#">{{ link }}</a></li>
+            }
+          </ul>
+        </div>
+      }
+
+    </div>
+
+    <div class="bottom">
+      <span>© {{ year }} La Poste Tunisienne · البريد التونسي — Maquette de démonstration</span>
+      <div class="pay">
+        <span>e-Dinar</span><span>Visa</span><span>Mastercard</span>
+      </div>
+    </div>
+  </div>
+</footer>

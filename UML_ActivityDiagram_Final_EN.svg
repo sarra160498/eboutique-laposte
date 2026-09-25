@@ -1,0 +1,72 @@
+<svg viewBox="0 0 1020 900" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif">
+<defs><marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 Z" fill="#3a3f52"/></marker></defs>
+<style>
+ .at{ font-size:10.5px; fill:#1f2430; text-anchor:middle; }
+ .ro{ font-size:8px; fill:#8b93a3; text-anchor:middle; }
+ .fl{ stroke:#3a3f52; stroke-width:1.2; fill:none; }
+ .dec{ fill:#fff6d6; stroke:#d9a441; stroke-width:1.2; }
+ .gl{ font-size:9px; fill:#6b7280; text-anchor:middle; }
+ .ttl{ font-size:16px; font-weight:700; fill:#1f2430; text-anchor:middle; }
+ .lg{ font-size:9px; fill:#6b7280; }
+</style>
+<rect x="0" y="0" width="1020" height="900" fill="#ffffff"/>
+<text class="ttl" x="510" y="26">Activity Diagram — e-Boutique (overall flow)</text>
+<rect x="380" y="38" width="10" height="10" fill="#1c2a5e"/><text class="lg" x="394" y="47">Customer</text>
+<rect x="470" y="38" width="10" height="10" fill="#3f6fb0"/><text class="lg" x="484" y="47">System</text>
+<rect x="560" y="38" width="10" height="10" fill="#d9a441"/><text class="lg" x="574" y="47">Agent</text>
+<rect x="650" y="38" width="10" height="10" fill="#8a76c4"/><text class="lg" x="664" y="47">Admin</text>
+<circle cx="510" cy="60" r="9" fill="#1c2a5e"/>
+<line class="fl" x1="510" y1="69" x2="510" y2="76" marker-end="url(#ar)"/>
+<rect x="435" y="76" width="150" height="38" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="435" y="76" width="5" height="38" fill="#1c2a5e"/><text class="at" x="510" y="94">Log in</text><text class="ro" x="510" y="107">Customer</text>
+<line class="fl" x1="510" y1="114" x2="510" y2="132" marker-end="url(#ar)"/>
+<polygon class="dec" points="510,132 572,158 510,184 448,158"/><text class="at" x="510" y="161" font-size="9.5">2FA?</text>
+<rect x="245" y="139" width="150" height="38" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="245" y="139" width="5" height="38" fill="#1c2a5e"/><text class="at" x="320" y="157">Enter OTP code</text><text class="ro" x="320" y="170">Customer</text>
+<path class="fl" d="M448 158 H395" marker-end="url(#ar)"/>
+<text class="gl" x="420" y="152">yes</text>
+<path class="fl" d="M320 177 V222 H417" marker-end="url(#ar)"/>
+<path class="fl" d="M510 184 V222 H603" marker-end="url(#ar)"/>
+<text class="gl" x="524" y="205">no</text>
+<rect x="410" y="220" width="200" height="40" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="410" y="220" width="5" height="40" fill="#3f6fb0"/><text class="at" x="510" y="239">Open session (JWT)</text><text class="ro" x="510" y="252">System</text>
+<line class="fl" x1="510" y1="260" x2="510" y2="282" marker-end="url(#ar)"/>
+<polygon class="dec" points="510,286 572,312 510,338 448,312"/><text class="at" x="510" y="310" font-size="9.5">Choose a</text><text class="at" x="510" y="322" font-size="9.5">service</text>
+<path class="fl" d="M462 330 Q300 350 150 351" marker-end="url(#ar)"/>
+<path class="fl" d="M480 338 L400 351" marker-end="url(#ar)"/>
+<path class="fl" d="M540 338 L650 351" marker-end="url(#ar)"/>
+<path class="fl" d="M558 330 Q740 350 900 351" marker-end="url(#ar)"/>
+<text class="gl" x="300" y="345">Shop</text><text class="gl" x="430" y="352">Drop-off</text><text class="gl" x="600" y="352">Track</text><text class="gl" x="740" y="345">Claim</text>
+<rect x="65" y="372" width="170" height="40" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="65" y="372" width="5" height="40" fill="#1c2a5e"/><text class="at" x="150" y="391">Browse &amp; buy products</text><text class="ro" x="150" y="404">Customer</text>
+<line class="fl" x1="150" y1="412" x2="150" y2="440" marker-end="url(#ar)"/>
+<rect x="65" y="440" width="170" height="40" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="65" y="440" width="5" height="40" fill="#1c2a5e"/><text class="at" x="150" y="459">Pay (e-Dinar)</text><text class="ro" x="150" y="472">Customer</text>
+<path class="fl" d="M150 480 V600 H228" marker-end="url(#ar)"/>
+<rect x="315" y="372" width="170" height="40" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="315" y="372" width="5" height="40" fill="#1c2a5e"/><text class="at" x="400" y="391">Fill drop-off form</text><text class="ro" x="400" y="404">Customer</text>
+<line class="fl" x1="400" y1="412" x2="400" y2="438" marker-end="url(#ar)"/>
+<rect x="310" y="439" width="180" height="42" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="310" y="439" width="5" height="42" fill="#3f6fb0"/><text class="at" x="400" y="459">Compute shipping fees</text><text class="ro" x="400" y="472">System</text>
+<line class="fl" x1="400" y1="481" x2="400" y2="508" marker-end="url(#ar)"/>
+<rect x="310" y="509" width="180" height="42" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="310" y="509" width="5" height="42" fill="#1c2a5e"/><text class="at" x="400" y="529">Pay (online / on-site)</text><text class="ro" x="400" y="542">Customer</text>
+<path class="fl" d="M400 551 V600 H282" marker-end="url(#ar)"/>
+<rect x="565" y="372" width="170" height="40" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="565" y="372" width="5" height="40" fill="#1c2a5e"/><text class="at" x="650" y="391">Enter tracking number</text><text class="ro" x="650" y="404">Customer</text>
+<line class="fl" x1="650" y1="412" x2="650" y2="438" marker-end="url(#ar)"/>
+<rect x="565" y="440" width="170" height="40" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="565" y="440" width="5" height="40" fill="#3f6fb0"/><text class="at" x="650" y="459">View parcel status</text><text class="ro" x="650" y="472">System</text>
+<line class="fl" x1="650" y1="480" x2="650" y2="512" marker-end="url(#ar)"/>
+<circle cx="650" cy="524" r="10" fill="none" stroke="#1c2a5e" stroke-width="1.5"/><circle cx="650" cy="524" r="5" fill="#1c2a5e"/>
+<rect x="815" y="372" width="170" height="40" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="815" y="372" width="5" height="40" fill="#1c2a5e"/><text class="at" x="900" y="391">Submit a claim</text><text class="ro" x="900" y="404">Customer</text>
+<line class="fl" x1="900" y1="412" x2="900" y2="438" marker-end="url(#ar)"/>
+<rect x="810" y="439" width="180" height="42" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="810" y="439" width="5" height="42" fill="#3f6fb0"/><text class="at" x="900" y="459">Save claim (status: Open)</text><text class="ro" x="900" y="472">System</text>
+<line class="fl" x1="900" y1="481" x2="900" y2="520" marker-end="url(#ar)"/>
+<rect x="805" y="520" width="190" height="44" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="805" y="520" width="5" height="44" fill="#8a76c4"/><text class="at" x="900" y="541">Process claim (Open to Resolved)</text><text class="ro" x="900" y="554">Admin</text>
+<line class="fl" x1="900" y1="564" x2="900" y2="594" marker-end="url(#ar)"/>
+<rect x="810" y="595" width="180" height="42" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="810" y="595" width="5" height="42" fill="#3f6fb0"/><text class="at" x="900" y="615">Send e-mail notification</text><text class="ro" x="900" y="628">System</text>
+<line class="fl" x1="900" y1="637" x2="900" y2="668" marker-end="url(#ar)"/>
+<circle cx="900" cy="680" r="10" fill="none" stroke="#1c2a5e" stroke-width="1.5"/><circle cx="900" cy="680" r="5" fill="#1c2a5e"/>
+<polygon class="dec" points="255,574 317,600 255,626 193,600"/><text class="at" x="255" y="603" font-size="9.5"></text>
+<text class="at" x="255" y="604" font-size="9">merge</text>
+<line class="fl" x1="255" y1="626" x2="255" y2="650" marker-end="url(#ar)"/>
+<rect x="155" y="650" width="200" height="44" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="155" y="650" width="5" height="44" fill="#3f6fb0"/><text class="at" x="255" y="671">Save order (Paid / Pending)</text><text class="ro" x="255" y="684">System</text>
+<line class="fl" x1="255" y1="694" x2="255" y2="722" marker-end="url(#ar)"/>
+<rect x="155" y="722" width="200" height="44" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="155" y="722" width="5" height="44" fill="#d9a441"/><text class="at" x="255" y="743">Agent updates status</text><text class="ro" x="255" y="756">Agent</text>
+<line class="fl" x1="255" y1="766" x2="255" y2="794" marker-end="url(#ar)"/>
+<rect x="160" y="795" width="190" height="42" rx="9" fill="#fff" stroke="#1c2a5e"/><rect x="160" y="795" width="5" height="42" fill="#3f6fb0"/><text class="at" x="255" y="815">Send e-mail notification</text><text class="ro" x="255" y="828">System</text>
+<line class="fl" x1="255" y1="837" x2="255" y2="862" marker-end="url(#ar)"/>
+<circle cx="255" cy="874" r="10" fill="none" stroke="#1c2a5e" stroke-width="1.5"/><circle cx="255" cy="874" r="5" fill="#1c2a5e"/>
+
+</svg>

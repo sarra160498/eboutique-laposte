@@ -1,0 +1,27 @@
+<section class="section" id="boutique">
+  <div class="head" appReveal>
+    <span class="kicker">Le catalogue</span>
+    <h2>La boutique <span class="ar">المتجر</span></h2>
+    <p>Timbres de collection, emballages prêts-à-poster et services postaux — livrés ou retirés en bureau.</p>
+  </div>
+
+  <!-- Filtres de catégories -->
+  <div class="filters" appReveal>
+    @for (filter of filters; track filter.value) {
+      <button
+        class="chip"
+        type="button"
+        [class.on]="activeFilter() === filter.value"
+        (click)="selectFilter(filter.value)">
+        {{ filter.label }}
+      </button>
+    }
+  </div>
+
+  <!-- Grille de produits -->
+  <div class="grid">
+    @for (product of visibleProducts(); track product.id) {
+      <app-product-card [product]="product" (add)="addToCart($event)" />
+    }
+  </div>
+</section>

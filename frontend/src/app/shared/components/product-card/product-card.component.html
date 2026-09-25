@@ -1,0 +1,46 @@
+<article class="card">
+
+  <!-- Vignette : dégradé coloré + icône selon la catégorie -->
+  <div class="thumb" [style.background]="gradient()">
+    @if (product().badge) {
+      <span class="badge">{{ product().badge }}</span>
+    }
+
+    <button
+      class="fav"
+      type="button"
+      [class.on]="liked()"
+      (click)="toggleLike()"
+      aria-label="Ajouter aux favoris">
+      <svg viewBox="0 0 24 24" [attr.fill]="liked() ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2">
+        <path d="M12 21s-7-4.7-9.5-9C1 9 2.5 5 6 5c2 0 3.2 1.2 4 2.5C10.8 6.2 12 5 14 5c3.5 0 5 4 3.5 7-2.5 4.3-9.5 9-9.5 9Z"/>
+      </svg>
+    </button>
+
+    <svg class="art" width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.92)" stroke-width="1.2">
+      @switch (product().category) {
+        @case ('timbres')    { <rect x="4" y="3" width="16" height="18" rx="1"/><circle cx="12" cy="10" r="3"/><path d="M8 17h8"/> }
+        @case ('emballages') { <path d="M3 8l9 5 9-5M3 8v8l9 5 9-5V8M3 8l9-5 9 5"/> }
+        @case ('envois')     { <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"/> }
+        @case ('services')   { <rect x="2" y="5" width="20" height="14" rx="1"/><path d="M2 10h20"/> }
+        @case ('fleurs')     { <path d="M12 22V12M12 12C12 12 7 10 7 6a5 5 0 0 1 10 0c0 4-5 6-5 6z"/><path d="M12 12C12 12 8 8 4 10s2 8 8 6M12 12c0 0 4-4 8-2s-2 8-8 6"/> }
+      }
+    </svg>
+  </div>
+
+  <!-- Corps -->
+  <div class="body">
+    <span class="cat">{{ product().categoryLabel }}</span>
+    <h3>{{ product().name }}</h3>
+    <p class="desc">{{ product().description }}</p>
+
+    <div class="foot">
+      <span class="price">{{ product().price | dinar }}</span>
+      <button class="add" type="button" (click)="onAdd()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+        Ajouter
+      </button>
+    </div>
+  </div>
+
+</article>

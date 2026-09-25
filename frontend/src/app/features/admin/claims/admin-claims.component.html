@@ -1,0 +1,68 @@
+<div class="panel">
+  <h3>Réclamations reçues ({{ all().length }})
+    @if (openCount() > 0) { <span class="pill">{{ openCount() }} ouverte(s)</span> }
+  </h3>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Client</th><th>Colis</th><th>Type</th><th>Description</th><th>Date</th><th>Statut</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      @if (loading()) {
+        <tr><td colspan="7" class="muted">Chargement…</td></tr>
+      } @else {
+        @for (c of all(); track c.id) {
+          <tr>
+            <td>{{ c.customer }}<br><small class="muted">{{ c.email }}</small></td>
+            <td class="mono">{{ c.reference ?? '—' }}</td>
+            <td>{{ typeLabel[c.type] }}</td>
+            <td class="name">
+              <div class="desc-cell">{{ c.description }}</div>
+              @if (c.response) {
+                <div class="reply-sent">
+                  <b>Réponse envoyée :</b> {{ c.response }}
+                  @if (c.respondedAt) { <small class="muted"> · {{ c.respondedAt | date:'dd/MM/yyyy à HH:mm' }}</small> }
+                </div>
+              }
+            </td>
+            <td>{{ c.date | date:'dd/MM/yyyy' }}</td>
+            <td><span class="status-badge st-{{ c.status }}">{{ statusLabel[c.status] }}</span></td>
+            <td class="actions">
+              @switch (c.status) {
+                @case ('resolved') {
+                  <span class="done">Traitée ✓</span>
+                }
+                @case ('open') {
+                  <!-- Tant que la réclamation n'est pas prise en charge, pas de message. -->
+                  <button type="button" class="btn take" [disabled]="sending() === c.id" (click)="apply(c, 'in_review')">Prendre en charge</button>
+                }
+                @default {
+                  <!-- En cours de traitement : réponse prédéfinie ou personnalisée. -->
+                  <div class="reply">
+                    <select class="canned" (change)="setDraft(c.id, $any($event.target).value); $any($event.target).value = ''">
+                      <option value="">Réponse prédéfinie…</option>
+                      @for (r of cannedReplies; track r.label) {
+                        <option [value]="r.text">{{ r.label }}</option>
+                      }
+                    </select>
+                    <textarea class="reply-box" rows="3"
+                      [value]="draft(c.id)" (input)="setDraft(c.id, $any($event.target).value)"
+                      placeholder="Ou écrivez un message personnalisé au client…"></textarea>
+                    <div class="action-btns">
+                      <button type="button" class="btn reply-btn" [disabled]="sending() === c.id || !draft(c.id).trim()" (click)="apply(c)">
+                        {{ sending() === c.id ? 'Envoi…' : 'Envoyer' }}
+                      </button>
+                      <button type="button" class="btn ok" [disabled]="sending() === c.id" (click)="apply(c, 'resolved')">Marquer résolue</button>
+                    </div>
+                  </div>
+                }
+              }
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="7" class="muted">Aucune réclamation pour le moment.</td></tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>

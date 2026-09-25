@@ -1,0 +1,68 @@
+<svg viewBox="0 0 1040 720" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif">
+<defs>
+  <marker id="ar" markerWidth="10" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6 Z" fill="#4a5878"/></marker>
+</defs>
+<style>
+  .ttl{ font-size:18px; font-weight:700; fill:#1f2430; text-anchor:middle; }
+  .sub{ font-size:11px; fill:#6b7280; text-anchor:middle; }
+  .rn{ font-size:12.5px; font-weight:700; fill:#fff; text-anchor:middle; }
+  .rs{ font-size:9px; fill:#e6ecf8; text-anchor:middle; }
+  .sc{ font-size:9.5px; fill:#5b6270; text-anchor:middle; }
+  .lnk{ stroke:#4a5878; stroke-width:1.4; fill:none; }
+  .lvl{ font-size:10px; font-weight:700; fill:#8a76c4; text-anchor:end; }
+  .lvll{ stroke:#d7d2ea; stroke-width:1; stroke-dasharray:5 4; }
+  .cap{ font-size:9.5px; fill:#7a5a10; text-anchor:middle; }
+</style>
+<rect x="0" y="0" width="1040" height="720" fill="#ffffff"/>
+<text class="ttl" x="520" y="34">Role Hierarchy — e-Boutique Tunisian Post</text>
+<text class="sub" x="520" y="54">Scope by geography (national → regional → office) + access by team mission</text>
+
+<!-- level guides -->
+<line class="lvll" x1="120" y1="112" x2="915" y2="112"/><text class="lvl" x="112" y="98">National</text>
+<line class="lvll" x1="120" y1="228" x2="915" y2="228"/><text class="lvl" x="112" y="214">Regional</text>
+<line class="lvll" x1="120" y1="360" x2="915" y2="360"/><text class="lvl" x="112" y="346">Office</text>
+<line class="lvll" x1="120" y1="512" x2="915" y2="512"/><text class="lvl" x="112" y="498">Field / Public</text>
+
+<!-- links -->
+<path class="lnk" d="M520 130 V180 H520 V195" marker-end="url(#ar)"/>
+<path class="lnk" d="M520 262 V300 H360 V315" marker-end="url(#ar)"/>
+<path class="lnk" d="M360 393 V430 H300 V447" marker-end="url(#ar)"/>
+<path class="lnk" d="M360 393 V430 H470 V447" marker-end="url(#ar)"/>
+
+<!-- Admin general -->
+<rect x="405" y="72" width="230" height="58" rx="7" fill="#5b3ea8" stroke="#3e2a75"/><text class="rn" x="520" y="96">Admin Général</text><text class="rs" x="520" y="112">admin_general · whole network</text>
+<text class="sc" x="520" y="150">Full access: products, offices, users, teams, orders, claims, stats</text>
+
+<!-- Admin regional -->
+<rect x="405" y="204" width="230" height="58" rx="7" fill="#7659c0" stroke="#4e3a8a"/><text class="rn" x="520" y="228">Admin Régional</text><text class="rs" x="520" y="244">admin_regional · one region</text>
+<text class="sc" x="520" y="282">Manages the offices &amp; parcels of his region</text>
+
+<!-- Admin bureau (manager) -->
+<rect x="245" y="318" width="230" height="58" rx="7" fill="#8a76c4" stroke="#5e4fa0"/><text class="rn" x="360" y="342">Chef de Bureau (Manager)</text><text class="rs" x="360" y="358">admin_bureau · one office</text>
+
+<!-- Agent -->
+<rect x="185" y="450" width="230" height="60" rx="7" fill="#1c2a5e" stroke="#101a3d"/><text class="rn" x="300" y="474">Agent</text><text class="rs" x="300" y="490">agent · his office</text><text class="rs" x="300" y="503">status: paid → received → in_transit</text>
+
+<!-- Courier -->
+<rect x="355" y="450" width="230" height="60" rx="7" fill="#1c2a5e" stroke="#101a3d"/><text class="rn" x="470" y="474">Livreur (Courier)</text><text class="rs" x="470" y="490">livreur · delivery round</text><text class="rs" x="470" y="503">status: out_for_delivery → delivered</text>
+
+<text class="sc" x="360" y="400">Supervises his office queue; all statuses</text>
+
+<!-- staff | public separator -->
+<line x1="620" y1="392" x2="620" y2="520" stroke="#c9cede" stroke-width="1.4" stroke-dasharray="6 5"/>
+<text x="612" y="410" font-size="9.5" font-weight="700" fill="#8a93a6" text-anchor="end">STAFF</text>
+<text x="628" y="410" font-size="9.5" font-weight="700" fill="#2e7d46" text-anchor="start">PUBLIC</text>
+
+<!-- Customer (separate, public) -->
+<rect x="655" y="450" width="240" height="60" rx="7" fill="#2e7d46" stroke="#1f5a31"/><text class="rn" x="775" y="474">Client (Customer)</text><text class="rs" x="775" y="490">client · public user</text><text class="rs" x="775" y="503">shop · drop-off · track · claim</text>
+<text class="sc" x="775" y="432">Not part of the staff chain — external actor</text>
+
+<!-- Mission-based access box -->
+<rect x="120" y="548" width="795" height="120" rx="8" fill="#fff6e6" stroke="#d9a441"/>
+<text class="cap" x="517" y="570" font-weight="700" font-size="12">Orthogonal access — by TEAM MISSION (a staff member can be added to a team)</text>
+<rect x="150" y="584" width="230" height="66" rx="6" fill="#fff" stroke="#d9a441"/><text class="cap" x="265" y="606" font-weight="700">Team mission = "admin"</text><text class="sc" x="265" y="624">unlocks the Administration space</text><text class="sc" x="265" y="640">(even without an admin role)</text>
+<rect x="405" y="584" width="230" height="66" rx="6" fill="#fff" stroke="#d9a441"/><text class="cap" x="520" y="606" font-weight="700">Team mission = "sav"</text><text class="sc" x="520" y="624">unlocks Claim processing</text><text class="sc" x="520" y="640">(service après-vente)</text>
+<rect x="660" y="584" width="230" height="66" rx="6" fill="#fff" stroke="#d9a441"/><text class="cap" x="775" y="606" font-weight="700">Team mission = "none"</text><text class="sc" x="775" y="624">no extra access —</text><text class="sc" x="775" y="640">role permissions only</text>
+
+<text class="sub" x="520" y="694">Two independent axes: the ROLE gives the geographic scope, the TEAM MISSION grants extra functional access.</text>
+</svg>

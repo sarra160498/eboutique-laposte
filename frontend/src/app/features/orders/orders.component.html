@@ -1,0 +1,65 @@
+<section class="section">
+  <div class="wrap">
+
+    <div class="head">
+      <span class="kicker">Espace client</span>
+      <h2>Mes commandes &amp; dépôts <span class="ar">طلباتي</span></h2>
+      <p>Retrouvez vos achats en boutique et vos dépôts de colis, avec leur référence et leur statut.</p>
+    </div>
+
+    <!-- Filtres -->
+    <div class="filters">
+      @for (f of filters; track f.value) {
+        <button
+          class="chip"
+          type="button"
+          [class.on]="filter() === f.value"
+          (click)="filter.set(f.value)">
+          {{ f.label }}
+        </button>
+      }
+    </div>
+
+    <!-- Liste -->
+    <div class="orders">
+      @for (order of visible(); track order.reference) {
+        <article class="order">
+          <div class="icon" [class.deposit]="order.type === 'deposit'">
+            @switch (order.type) {
+              @case ('order') { <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M6 6 5 3H2"/></svg> }
+              @case ('deposit') { <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l9 5 9-5M3 8v8l9 5 9-5V8M3 8l9-5 9 5"/></svg> }
+            }
+          </div>
+
+          <div class="info">
+            <div class="top">
+              <span class="ref">{{ order.reference }}</span>
+              <span class="status-badge st-{{ order.status }}">{{ statusLabel(order.status) }}</span>
+            </div>
+            <h3>{{ order.label }}</h3>
+            <p class="meta">{{ order.date | date:'dd/MM/yyyy · HH:mm' }} · {{ order.paymentMethod === 'online' ? 'Payé en ligne (e-Dinar)' : 'Au guichet' }}</p>
+            <ul class="lines">
+              @for (line of order.lines; track line) {
+                <li>{{ line }}</li>
+              }
+            </ul>
+          </div>
+
+          <div class="side">
+            <span class="amount">{{ order.amount | dinar }}</span>
+            @if (order.type === 'deposit') {
+              <a routerLink="/suivi" class="track-link">Suivre →</a>
+            }
+          </div>
+        </article>
+      } @empty {
+        <div class="empty">
+          <b>Aucune opération</b>
+          <p>Vous n'avez pas encore de commande ni de dépôt dans cette catégorie.</p>
+          <a routerLink="/" fragment="boutique" class="btn btn-primary">Aller à la boutique</a>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>

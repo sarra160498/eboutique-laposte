@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" role="img" aria-label="La Poste Tunisienne — e-Boutique">
+  <!-- Fond transparent (aucun rect de fond) -->
+  <!-- Badge POSTE TN -->
+  <g>
+    <rect x="4" y="14" width="68" height="68" rx="10" fill="#1c2a5e" stroke="#1c2a5e" stroke-width="3"/>
+    <!-- bande jaune supérieure -->
+    <path d="M7 24 a7 7 0 0 1 7-7 h44 a7 7 0 0 1 7 7 v14 h-58 z" fill="#f4c400"/>
+    <text x="38" y="34" font-family="Arial, sans-serif" font-size="13" font-weight="700"
+          fill="#1c2a5e" text-anchor="middle" letter-spacing="1">POSTE</text>
+    <text x="38" y="70" font-family="Arial, sans-serif" font-size="26" font-weight="800"
+          fill="#ffffff" text-anchor="middle" letter-spacing="1">TN</text>
+  </g>
+
+  <!-- Texte principal -->
+  <text x="88" y="40" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700"
+        fill="#1c2a5e">La Poste Tunisienne</text>
+
+  <!-- Ligne arabe + e-Boutique -->
+  <text x="88" y="66" font-family="Arial, sans-serif" font-size="14" fill="#c8a415">
+    <tspan>البريد التونسي</tspan><tspan dx="8" fill="#1c2a5e" font-weight="600">· e-Boutique</tspan>
+  </text>
+</svg>

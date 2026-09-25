@@ -1,0 +1,98 @@
+name: CI
+
+# Se déclenche à chaque push et pull request sur les branches principales.
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Job 1 : Frontend Angular — installe les dépendances et compile l'application.
+  # ---------------------------------------------------------------------------
+  frontend:
+    name: Frontend (Angular build)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Installer les dépendances
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Compiler Angular (production)
+        working-directory: ./frontend
+        run: npm run build
+
+  # ---------------------------------------------------------------------------
+  # Job 2 : Backend Node/Express — installe les dépendances, vérifie la syntaxe
+  # et démarre l'API contre une base MySQL de test jetable.
+  # ---------------------------------------------------------------------------
+  backend:
+    name: Backend (Node/Express + MySQL)
+    runs-on: ubuntu-latest
+
+    # Base MySQL temporaire, disponible seulement pendant le job.
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: eboutique_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    # Variables d'environnement lues par l'API (adapte les noms si besoin).
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: eboutique_test
+      JWT_SECRET: ci_test_secret
+      CLIENT_ORIGIN: http://localhost:4200
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Installer les dépendances
+        working-directory: ./backend
+        run: npm install
+
+      - name: Vérifier la syntaxe du serveur
+        working-directory: ./backend
+        run: node --check src/server.js
+
+      - name: Démarrer l'API (test de démarrage + init de la base)
+        working-directory: ./backend
+        run: |
+          node src/server.js &
+          SERVER_PID=$!
+          # On laisse le temps à l'API de se connecter à MySQL et de créer les tables.
+          sleep 12
+          # Vérifie que la route de santé répond.
+          curl -fsS http://localhost:3000/api/health || (echo "API ne répond pas" && exit 1)
+          echo "API démarrée avec succès."
+          kill $SERVER_PID

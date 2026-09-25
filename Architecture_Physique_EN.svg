@@ -1,0 +1,63 @@
+<svg viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif">
+<defs>
+  <marker id="ar" markerWidth="11" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 Z" fill="#1c2a5e"/></marker>
+</defs>
+<style>
+  .ttl{ font-size:18px; font-weight:700; fill:#1f2430; text-anchor:middle; }
+  .sub{ font-size:11px; fill:#6b7280; text-anchor:middle; }
+  .nodeT{ font-size:13px; font-weight:700; fill:#fff; text-anchor:middle; }
+  .nodeS{ font-size:9px; fill:#dfe6f5; text-anchor:middle; }
+  .box{ font-size:11px; font-weight:600; fill:#1f2430; text-anchor:middle; }
+  .bd{ font-size:9px; fill:#5b6270; text-anchor:middle; }
+  .proto{ font-size:10px; fill:#1c2a5e; font-weight:700; text-anchor:middle; }
+  .port{ font-size:9px; fill:#7a5a10; font-weight:700; text-anchor:middle; }
+  .stereo{ font-size:8.5px; font-style:italic; fill:#8a93a6; text-anchor:middle; }
+</style>
+<rect x="0" y="0" width="1000" height="640" fill="#ffffff"/>
+<text class="ttl" x="500" y="34">Physical Architecture (Deployment) — e-Boutique Tunisian Post</text>
+<text class="sub" x="500" y="54">Client–Server · 3 tiers · HTTP REST + TCP</text>
+
+<!-- Client node -->
+<text class="stereo" x="150" y="96">«device»</text>
+<rect x="55" y="102" width="190" height="180" rx="8" fill="#eef2fb" stroke="#5b83c4" stroke-width="1.5"/>
+<rect x="55" y="102" width="190" height="40" rx="8" fill="#1c2a5e"/><text class="nodeT" x="150" y="122">Client Device</text><text class="nodeS" x="150" y="135">PC / smartphone</text>
+<rect x="75" y="158" width="150" height="104" rx="5" fill="#fff" stroke="#8ba0c8"/><text class="box" x="150" y="180">Web Browser</text><text class="bd" x="150" y="197">Chrome · Firefox · Edge</text><text class="box" x="150" y="222" fill="#1c2a5e">Angular 20 SPA</text><text class="bd" x="150" y="238">HTML · CSS · JS bundle</text><text class="bd" x="150" y="252">Leaflet map</text>
+
+<!-- Web/App server node -->
+<text class="stereo" x="500" y="96">«server»</text>
+<rect x="380" y="102" width="240" height="180" rx="8" fill="#fff6e6" stroke="#d9a441" stroke-width="1.5"/>
+<rect x="380" y="102" width="240" height="40" rx="8" fill="#1c2a5e"/><text class="nodeT" x="500" y="122">Application Server</text><text class="nodeS" x="500" y="135">Node.js runtime</text>
+<rect x="400" y="158" width="200" height="52" rx="5" fill="#fff" stroke="#d9a441"/><text class="box" x="500" y="178">Express REST API</text><text class="bd" x="500" y="194">controllers · middleware</text><text class="port" x="500" y="205">listens on port 3000</text>
+<rect x="400" y="220" width="200" height="46" rx="5" fill="#fff" stroke="#d9a441"/><text class="box" x="500" y="240">Serves Angular build</text><text class="bd" x="500" y="255">static files · CORS</text>
+
+<!-- DB server node -->
+<text class="stereo" x="850" y="96">«server»</text>
+<rect x="755" y="102" width="190" height="180" rx="8" fill="#e9f5ee" stroke="#3f9d5c" stroke-width="1.5"/>
+<rect x="755" y="102" width="190" height="40" rx="8" fill="#1c2a5e"/><text class="nodeT" x="850" y="122">Database Server</text><text class="nodeS" x="850" y="135">persistence</text>
+<rect x="775" y="158" width="150" height="104" rx="5" fill="#fff" stroke="#3f9d5c"/><text class="box" x="850" y="182">MySQL 8</text><text class="port" x="850" y="198">port 3306</text><text class="bd" x="850" y="216">tables: users, orders,</text><text class="bd" x="850" y="230">products, bureaux,</text><text class="bd" x="850" y="244">claims, teams,</text><text class="bd" x="850" y="258">messages…</text>
+
+<!-- connections -->
+<line x1="245" y1="200" x2="380" y2="200" stroke="#1c2a5e" stroke-width="1.8" marker-end="url(#ar)"/>
+<line x1="380" y1="215" x2="245" y2="215" stroke="#1c2a5e" stroke-width="1.8" marker-end="url(#ar)"/>
+<text class="proto" x="312" y="192">HTTP / HTTPS</text><text class="bd" x="312" y="232">REST · JSON · JWT</text>
+
+<line x1="620" y1="200" x2="755" y2="200" stroke="#1c2a5e" stroke-width="1.8" marker-end="url(#ar)"/>
+<line x1="755" y1="215" x2="620" y2="215" stroke="#1c2a5e" stroke-width="1.8" marker-end="url(#ar)"/>
+<text class="proto" x="687" y="192">TCP / SQL</text><text class="bd" x="687" y="232">mysql2 pool</text>
+
+<!-- external services -->
+<text class="stereo" x="270" y="360">«external service»</text>
+<rect x="150" y="366" width="240" height="60" rx="8" fill="#fff" stroke="#8ba0c8"/><text class="box" x="270" y="390">SMTP Mail Server</text><text class="bd" x="270" y="408">transactional e-mail (Nodemailer)</text>
+<line x1="470" y1="282" x2="330" y2="366" stroke="#1c2a5e" stroke-width="1.5" marker-end="url(#ar)"/><text class="proto" x="360" y="330">SMTP</text>
+
+<text class="stereo" x="730" y="360">«external service»</text>
+<rect x="610" y="366" width="240" height="60" rx="8" fill="#fff" stroke="#8ba0c8"/><text class="box" x="730" y="390">OpenStreetMap tiles</text><text class="bd" x="730" y="408">map background (from browser)</text>
+<line x1="180" y1="262" x2="640" y2="366" stroke="#5b83c4" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#ar)"/><text class="proto" x="430" y="300" fill="#5b83c4">HTTPS (tiles)</text>
+
+<text class="stereo" x="500" y="470">«external service»</text>
+<rect x="380" y="476" width="240" height="58" rx="8" fill="#fff" stroke="#8ba0c8"/><text class="box" x="500" y="500">e-Dinar payment gateway</text><text class="bd" x="500" y="518">online payment (simulated in demo)</text>
+<line x1="500" y1="282" x2="500" y2="476" stroke="#1c2a5e" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+
+<text class="sub" x="500" y="580">Three-tier deployment: the browser runs the Angular SPA and talks to the Express API over HTTP/REST;</text>
+<text class="sub" x="500" y="598">the API is the only tier that reaches MySQL (TCP :3306). E-mail, map tiles and e-Dinar are external services.</text>
+</svg>

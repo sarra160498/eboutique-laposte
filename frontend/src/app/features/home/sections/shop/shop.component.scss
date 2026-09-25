@@ -1,0 +1,32 @@
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+/* Puce de filtre, style "atelier" (bordure nette, pas d'arrondi). */
+.chip {
+  padding: 10px 19px;
+  border: 2px solid var(--ink);
+  background: transparent;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink);
+  transition: .18s var(--ease);
+}
+.chip:hover { background: rgba(20, 26, 46, .07); }
+.chip.on { background: var(--bleu); color: #fff; border-color: var(--bleu); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1000px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+}
