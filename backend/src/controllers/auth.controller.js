@@ -6,6 +6,7 @@ const {
   verifyEmailTemplate, resetPasswordTemplate, otpTemplate,
 } = require('../utils/mailer');
 const { getMissions } = require('../middleware/teamAccess');
+const { isValidCin, isValidPhone, isValidCcp, edinarCodeFor } = require('../utils/validation');
 
 /** Crée un jeton JWT signé pour un utilisateur (rôle inclus pour l'autorisation). */
 function signToken(user) {
@@ -62,20 +63,19 @@ async function register(req, res) {
   if (password.length < 6) {
     return res.status(400).json({ message: 'Le mot de passe doit contenir au moins 6 caractères.' });
   }
-  if (!/^[01]\d{7}$/.test(cin)) {
+  if (!isValidCin(cin)) {
     return res.status(400).json({ message: 'Le CIN doit comporter 8 chiffres et commencer par 0 ou 1.' });
   }
-  if (!/^(5[2-5]|4[01])\d{6}$/.test(phone)) {
+  if (!isValidPhone(phone)) {
     return res.status(400).json({ message: 'Le numéro de téléphone doit comporter 8 chiffres et commencer par 52, 53, 54, 55, 40 ou 41.' });
   }
-  if (ccp && !/^\d{20}$/.test(ccp)) {
+  if (ccp && !isValidCcp(ccp)) {
     return res.status(400).json({ message: 'Le numéro CCP (RIP) doit comporter 20 chiffres.' });
   }
 
   // Code e-Dinar rattaché à l'identité : dérivé de la CIN côté serveur
   // (source de vérité), quel que soit ce qu'envoie le client.
-  const check = cin.split('').reduce((s, d) => s + Number(d), 0) % 10;
-  const edinarCode = `EDN-17-${cin}-${check}`;
+  const edinarCode = edinarCodeFor(cin);
 
   try {
     const [existing] = await pool.query('SELECT id FROM users WHERE email = ?', [email]);

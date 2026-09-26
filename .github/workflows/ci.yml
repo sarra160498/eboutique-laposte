@@ -81,6 +81,10 @@ jobs:
         working-directory: ./backend
         run: npm install
 
+      - name: Lancer les tests unitaires
+        working-directory: ./backend
+        run: npm test
+
       - name: Vérifier la syntaxe du serveur
         working-directory: ./backend
         run: node --check src/server.js

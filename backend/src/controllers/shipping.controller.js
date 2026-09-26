@@ -1,11 +1,6 @@
 const pool = require('../config/db');
 const { GOVERNORATES, resolveZone } = require('../utils/geo');
-
-/**
- * Diviseur du poids volumétrique (standard international : L×l×h en cm / 5000).
- * Le poids facturé est le plus grand entre le poids réel et le poids volumétrique.
- */
-const VOLUMETRIC_DIVISOR = 5000;
+const { VOLUMETRIC_DIVISOR, volumetricWeight, billedKgFor, computeTotal } = require('../utils/pricing');
 
 /** GET /api/shipping/rates — grille tarifaire + liste des gouvernorats. */
 async function rates(req, res) {
@@ -61,12 +56,9 @@ async function quote(req, res) {
     }
 
     // Poids volumétrique (si les dimensions sont fournies).
-    const L = Number(length) || 0;
-    const W = Number(width) || 0;
-    const H = Number(height) || 0;
-    const volumetricWeight = (L * W * H) / VOLUMETRIC_DIVISOR;
-    const chargeableWeight = Math.max(realWeight, volumetricWeight);
-    const billedKg = Math.max(1, Math.ceil(chargeableWeight));
+    const volWeight = volumetricWeight(length, width, height);
+    const chargeableWeight = Math.max(realWeight, volWeight);
+    const billedKg = billedKgFor(realWeight, length, width, height);
 
     // Zone tarifaire + tarif correspondant en base.
     const zone = resolveZone(originGovernorate, destinationGovernorate, scope);
@@ -81,7 +73,7 @@ async function quote(req, res) {
 
     const weightCost = billedKg * pricePerKg;
     const subtotal = basePrice + weightCost;
-    const total = urgent ? subtotal * urgentMultiplier : subtotal;
+    const total = computeTotal({ basePrice, pricePerKg, urgentMultiplier, billedKg, urgent });
 
     return res.json({
       zone,
@@ -89,7 +81,7 @@ async function quote(req, res) {
       originGovernorate,
       destinationGovernorate: destinationGovernorate || null,
       realWeightKg: Number(realWeight.toFixed(2)),
-      volumetricWeightKg: Number(volumetricWeight.toFixed(2)),
+      volumetricWeightKg: Number(volWeight.toFixed(2)),
       chargeableWeightKg: Number(chargeableWeight.toFixed(2)),
       billedKg,
       basePrice,
