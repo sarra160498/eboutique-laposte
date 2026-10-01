@@ -1,0 +1,70 @@
+<svg viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif">
+<defs>
+  <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#1c2a5e" flood-opacity="0.18"/></filter>
+</defs>
+<rect x="0" y="0" width="1280" height="720" fill="#ffffff"/>
+
+<!-- header -->
+<text x="48" y="54" font-size="22" font-weight="700" fill="#f4c400">04. <tspan fill="#f4c400">Proposed Solution</tspan></text>
+<text x="1232" y="52" font-size="26" font-weight="800" fill="#1c2a5e" text-anchor="end">esprit<tspan fill="#e2231a">▸</tspan></text>
+<text x="48" y="110" font-size="40" font-weight="800" fill="#1c2a5e">The e-Boutique Platform</text>
+<rect x="48" y="122" width="300" height="5" rx="2" fill="#f4c400"/>
+
+<!-- connectors (behind) -->
+<g stroke="#f4c400" stroke-width="3" opacity="0.9">
+  <line x1="640" y1="400" x2="300" y2="250"/>
+  <line x1="640" y1="400" x2="300" y2="400"/>
+  <line x1="640" y1="400" x2="300" y2="560"/>
+  <line x1="640" y1="400" x2="980" y2="250"/>
+  <line x1="640" y1="400" x2="980" y2="400"/>
+  <line x1="640" y1="400" x2="980" y2="560"/>
+</g>
+
+<!-- central hub -->
+<circle cx="640" cy="400" r="92" fill="#1c2a5e" filter="url(#sh)"/>
+<circle cx="640" cy="400" r="92" fill="none" stroke="#f4c400" stroke-width="5"/>
+<text x="640" y="392" font-size="26" font-weight="800" fill="#ffffff" text-anchor="middle">e-Boutique</text>
+<text x="640" y="418" font-size="13" fill="#f4c400" text-anchor="middle">La Poste Tunisienne</text>
+<text x="640" y="438" font-size="11" fill="#cdd6e6" text-anchor="middle">Secure web platform</text>
+
+<!-- card helper: left column x≈120, right column x≈840 ; each 240x96 -->
+<!-- LEFT TOP -->
+<g filter="url(#sh)"><rect x="96" y="202" width="248" height="96" rx="14" fill="#1c2a5e"/><rect x="96" y="202" width="8" height="96" rx="4" fill="#f4c400"/></g>
+<text x="124" y="238" font-size="19" font-weight="700" fill="#ffffff">🛍️ Shop &amp; Warehouse</text>
+<text x="124" y="262" font-size="13" fill="#dfe6f5">Catalog, cart, parcel drop-off</text>
+<text x="124" y="282" font-size="13" fill="#dfe6f5">at the nearest post office</text>
+
+<!-- LEFT MID -->
+<g filter="url(#sh)"><rect x="96" y="352" width="248" height="96" rx="14" fill="#1c2a5e"/><rect x="96" y="352" width="8" height="96" rx="4" fill="#f4c400"/></g>
+<text x="124" y="388" font-size="19" font-weight="700" fill="#ffffff">💳 e-Dinar Payment</text>
+<text x="124" y="412" font-size="13" fill="#dfe6f5">Online payment &amp; invoice,</text>
+<text x="124" y="432" font-size="13" fill="#dfe6f5">card linked to the CIN</text>
+
+<!-- LEFT BOTTOM -->
+<g filter="url(#sh)"><rect x="96" y="502" width="248" height="96" rx="14" fill="#1c2a5e"/><rect x="96" y="502" width="8" height="96" rx="4" fill="#f4c400"/></g>
+<text x="124" y="538" font-size="19" font-weight="700" fill="#ffffff">🤖 Smart Chatbot</text>
+<text x="124" y="562" font-size="13" fill="#dfe6f5">Parcel assistant linked to</text>
+<text x="124" y="582" font-size="13" fill="#dfe6f5">real-time tracking</text>
+
+<!-- RIGHT TOP -->
+<g filter="url(#sh)"><rect x="936" y="202" width="248" height="96" rx="14" fill="#1c2a5e"/><rect x="1176" y="202" width="8" height="96" rx="4" fill="#f4c400"/></g>
+<text x="1160" y="238" font-size="19" font-weight="700" fill="#ffffff" text-anchor="end">Package Tracking 📦</text>
+<text x="1160" y="262" font-size="13" fill="#dfe6f5" text-anchor="end">Real-time traceability,</text>
+<text x="1160" y="282" font-size="13" fill="#dfe6f5" text-anchor="end">status + e-mail at each step</text>
+
+<!-- RIGHT MID -->
+<g filter="url(#sh)"><rect x="936" y="352" width="248" height="96" rx="14" fill="#1c2a5e"/><rect x="1176" y="352" width="8" height="96" rx="4" fill="#f4c400"/></g>
+<text x="1160" y="388" font-size="19" font-weight="700" fill="#ffffff" text-anchor="end">Security 🔐</text>
+<text x="1160" y="412" font-size="13" fill="#dfe6f5" text-anchor="end">E-mail verification, 2FA,</text>
+<text x="1160" y="432" font-size="13" fill="#dfe6f5" text-anchor="end">JWT, bcrypt hashing</text>
+
+<!-- RIGHT BOTTOM -->
+<g filter="url(#sh)"><rect x="936" y="502" width="248" height="96" rx="14" fill="#1c2a5e"/><rect x="1176" y="502" width="8" height="96" rx="4" fill="#f4c400"/></g>
+<text x="1160" y="538" font-size="19" font-weight="700" fill="#ffffff" text-anchor="end">Claims (SAV) 📝</text>
+<text x="1160" y="562" font-size="13" fill="#dfe6f5" text-anchor="end">Report a damaged / lost parcel,</text>
+<text x="1160" y="582" font-size="13" fill="#dfe6f5" text-anchor="end">handled by the support team</text>
+
+<!-- footer -->
+<text x="48" y="688" font-size="14" fill="#9aa3b2">e-Boutique — Tunisian Post Office</text>
+<circle cx="1216" cy="676" r="22" fill="#f4c400"/><text x="1216" y="682" font-size="16" font-weight="700" fill="#1c2a5e" text-anchor="middle">6</text>
+</svg>

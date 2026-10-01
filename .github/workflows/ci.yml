@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 # Se déclenche à chaque push et pull request sur les branches principales.
 on:
@@ -6,6 +6,12 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+
+# Permissions nécessaires au déploiement GitHub Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   # ---------------------------------------------------------------------------
@@ -65,3 +71,51 @@ jobs:
       - name: Vérifier la syntaxe du serveur
         working-directory: ./backend
         run: node --check src/server.js
+
+  # ---------------------------------------------------------------------------
+  # Job 3 : Déploiement continu (CD) — publie le frontend Angular sur GitHub
+  # Pages, automatiquement, uniquement après la réussite du build et des tests,
+  # et seulement sur un push de la branche principale (pas sur les PR).
+  # ---------------------------------------------------------------------------
+  deploy:
+    name: Deploy frontend (GitHub Pages)
+    runs-on: ubuntu-latest
+    needs: [ frontend, backend ]
+    if: github.event_name == 'push'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Installer les dépendances
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Compiler Angular pour GitHub Pages
+        working-directory: ./frontend
+        # base-href = /<nom-du-depot>/ pour que les chemins soient corrects sur Pages.
+        run: npm run build -- --base-href=/eboutique-laposte/
+
+      - name: Préparer le fallback SPA (404 -> index.html)
+        run: cp frontend/dist/frontend/browser/index.html frontend/dist/frontend/browser/404.html
+
+      - name: Configurer GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Téléverser le site compilé
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend/dist/frontend/browser
+
+      - name: Déployer sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
